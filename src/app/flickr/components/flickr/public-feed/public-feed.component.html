@@ -1,41 +1,72 @@
-<!--<p-button label="Click" icon="pi pi-check" iconPos="left"></p-button>-->
-
-<!--<p-message severity="error" text="Field is required"></p-message>-->
-
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
-
 <div class="ui-g content-section">
-  <p-dataView [value]="shownFeed" [paginator]="true" [rows]="5">
+
+  <div class="ui-g" *ngIf="uniqueItemTags?.length > 0">
+    <mat-chip-list matPrefix [selectable]="true" [@bubbleAnimation]="uniqueItemTags.length">
+      <mat-chip *ngFor="let uniqueTag of uniqueItemTags" [selectable]="true" [removable]="true" color="primary"
+                [selected]="false">
+        <i class="pi pi-tag"></i>
+        <span>{{uniqueTag}}</span>
+        <i class="pi pi-plus-circle" pTooltip="Select" tooltipPosition="top" (click)="addSearchTag(uniqueTag)"></i>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <p-progressBar mode="indeterminate" *ngIf="loading"></p-progressBar>
+
+  <p-dataView [value]="shownFeed" [paginator]="true" [rows]="9" layout="grid" [loading]="loading">
+
     <p-header>
       <div class="ui-g">
         <div class="ui-g-4">
+          <p-multiSelect [options]="uniqueItemTags" [(ngModel)]="searchTags">
+            <ng-template let-uniqueItemTag let-i="index" pTemplate="item">
+              {{uniqueItemTag}}
+            </ng-template>
+            <!--<ng-template let-searchTags pTemplate="selectedItems">-->
+              <!--<span *ngFor="let searchTag of searchTags">{{searchTag}}</span>-->
+            <!--</ng-template>-->
+          </p-multiSelect>
         </div>
         <div class="ui-g-4" style="position: relative">
-          <p-chips [(ngModel)]="tags"
-                   [allowDuplicate]="false"
-                   [addOnTab]="true" [addOnBlur]="true"
-                   (onAdd)="filterFeedByTags()"
-                   (onRemove)="filterFeedByTags()">
-          </p-chips>
-          <span *ngIf="tags?.length > 0" class="remove" pTooltip="Click to remove all tags" (click)="reset()">&times;</span>
+          <!--<p-chips [(ngModel)]="searchTags"-->
+                   <!--[allowDuplicate]="false"-->
+                   <!--[addOnTab]="true" [addOnBlur]="true"-->
+                   <!--(onAdd)="filterFeedByTags()"-->
+                   <!--(onRemove)="filterFeedByTags()">-->
+          <!--</p-chips>-->
+
+          <div class="ui-inputgroup">
+            <i class="pi pi-tags" style="font-size: 2.5em"></i>
+            <p-autoComplete [(ngModel)]="searchTags" [suggestions]="filteredItemTags" (completeMethod)="filterItemTags($event)"
+                            (onSelect)="filterFeedByTags()"
+                            (onUnselect)="filterFeedByTags()"
+                            [minLength]="1" placeholder="Type to get Tags suggestions" [multiple]="true">
+            </p-autoComplete>
+          </div>
+
+
+          <span *ngIf="searchTags?.length > 0" class="remove" pTooltip="Click to remove all tags" (click)="removeAllSearchTags()">&times;</span>
         </div>
         <div class="ui-g-4" style="text-align: right">
-          <p-dataViewLayoutOptions #dataViewLayoutOptions></p-dataViewLayoutOptions>
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
         </div>
       </div>
-
     </p-header>
+
     <ng-template let-item pTemplate="listItem">
-      <div>
-        <img src="{{item.media.m}}"/>
+      <div style="text-align: center;">
+        <img class="img-thumbnail img-responsive" src="{{item.media.m}}"/>
       </div>
     </ng-template>
+
     <ng-template let-item pTemplate="gridItem">
       <div class="ui-g-12 ui-md-3">
-        <img src="{{item.media.m}}"/>
+        <img class="img-thumbnail img-responsive" src="{{item.media.m}}"/>
       </div>
     </ng-template>
+
   </p-dataView>
+
 </div>
 
 

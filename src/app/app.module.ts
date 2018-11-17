@@ -8,6 +8,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
@@ -15,7 +17,17 @@ import {ChipsModule} from 'primeng/chips';
 import {DataViewModule} from 'primeng/dataview';
 import {TooltipModule} from 'primeng/tooltip';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import {MultiSelectModule} from 'primeng/multiselect';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -30,16 +42,30 @@ import {ConfirmationService} from 'primeng/api';
     HttpClientModule,
     RoutingModule,
 
+    NgbModule,
+
+    MatSnackBarModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatIconModule,
+
     ButtonModule,
     MessagesModule,
     MessageModule,
     ChipsModule,
     DataViewModule,
     TooltipModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ToastModule,
+    ProgressBarModule,
+    AutoCompleteModule,
+    MultiSelectModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
-    ConfirmationService
+    ConfirmationService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
