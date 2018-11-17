@@ -1,0 +1,31 @@
+.content-section {
+  display: block;
+  padding: 30px;
+  overflow: hidden;
+  background-color: #f5f7f8;
+}
+
+span.remove {
+  position: absolute;
+  top: -8px;
+  right: -11px;
+  padding: 4px 0 0 7px;
+  background: #bebebe;
+  line-height: 1em;
+  border-radius: 50%;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  opacity: 0.3;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+::ng-deep .ui-inputtext.ui-state-default.ui-corner-all {
+  width: 100%;
+}

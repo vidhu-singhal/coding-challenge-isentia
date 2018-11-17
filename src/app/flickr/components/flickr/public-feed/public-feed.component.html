@@ -1,0 +1,41 @@
+<!--<p-button label="Click" icon="pi pi-check" iconPos="left"></p-button>-->
+
+<!--<p-message severity="error" text="Field is required"></p-message>-->
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+<div class="ui-g content-section">
+  <p-dataView [value]="shownFeed" [paginator]="true" [rows]="5">
+    <p-header>
+      <div class="ui-g">
+        <div class="ui-g-4">
+        </div>
+        <div class="ui-g-4" style="position: relative">
+          <p-chips [(ngModel)]="tags"
+                   [allowDuplicate]="false"
+                   [addOnTab]="true" [addOnBlur]="true"
+                   (onAdd)="filterFeedByTags()"
+                   (onRemove)="filterFeedByTags()">
+          </p-chips>
+          <span *ngIf="tags?.length > 0" class="remove" pTooltip="Click to remove all tags" (click)="reset()">&times;</span>
+        </div>
+        <div class="ui-g-4" style="text-align: right">
+          <p-dataViewLayoutOptions #dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </div>
+
+    </p-header>
+    <ng-template let-item pTemplate="listItem">
+      <div>
+        <img src="{{item.media.m}}"/>
+      </div>
+    </ng-template>
+    <ng-template let-item pTemplate="gridItem">
+      <div class="ui-g-12 ui-md-3">
+        <img src="{{item.media.m}}"/>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
+
+
