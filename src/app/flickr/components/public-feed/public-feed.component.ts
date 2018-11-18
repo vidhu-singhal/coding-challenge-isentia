@@ -2,15 +2,12 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {PublicFeedService} from '../../services/public-feed.service';
 import {ConfirmationService, MessageService, SelectItem} from 'primeng/api';
 
+import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+
 import {animate, animateChild, group, keyframes, query, stagger, style, transition, trigger} from '@angular/animations';
 import {MatSnackBar} from '@angular/material';
-import {timer} from 'rxjs';
+import {Observable, Subject, timer} from 'rxjs';
 
-
-export enum SearchType {
-  OR,
-  AND
-}
 
 @Component({
   selector: 'app-flickr-public-feed',
@@ -52,19 +49,15 @@ export class PublicFeedComponent implements OnInit {
   public searchTags: string[] = []; //
   public filteredItemTags: string[] = []; // Tag search auto-complete dropdown results
   public isORBasedTagSearch: boolean = false;
-  public searchType: SearchType = SearchType.OR; // Whether search tags will be used for 'OR' based search or 'AND' based search
-  public searchTypes: SelectItem[] = [];
 
   public shownFeed: any[];
+
+  liveSearchTags$ = new Subject<string[]>();
 
   constructor(protected publicFeedService: PublicFeedService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
               private snackBar: MatSnackBar) {
-
-    this.searchTypes = [];
-    this.searchTypes.push({label: 'OR', value: SearchType.OR});
-    this.searchTypes.push({label: 'AND', value: SearchType.AND});
   }
 
   ngOnInit() {
@@ -119,7 +112,7 @@ export class PublicFeedComponent implements OnInit {
 
   public filterFeedByTags() {
     this.shownFeed = this.searchTags.length == 0 ? this.feed : this.feed.filter(item => {
-      let matched: boolean = this.isORBasedTagSearch ? false : true;
+      let matched: boolean = this.isORBasedTagSearch ? false : true; // Default matched values for ANY and ALL based search
       this.searchTags.forEach(searchTag => {
         let itemTags: string[] = item.tags.split(' ');
         let searchTagMatched = itemTags.filter(itemTag => itemTag.trim().toLowerCase() == searchTag.trim().toLowerCase()).length > 0;
@@ -181,7 +174,14 @@ export class PublicFeedComponent implements OnInit {
           break;
       }
     }
-
   }
 
+  liveSearch(liveSearchTags: Observable<string[]>): Observable<string[]> {
+    return liveSearchTags.pipe(
+      // filter(text => text.length > 2),
+      debounceTime(100),
+      distinctUntilChanged(),
+      switchMap(() => this.publicFeedService.getPublicFeed())
+    );
+  }
 }

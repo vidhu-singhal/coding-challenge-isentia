@@ -82,7 +82,11 @@
 
               <!--<p-selectButton [options]="searchTypes" [(ngModel)]="searchType"></p-selectButton>-->
 
-              <p-toggleButton onLabel="OR" offLabel="AND" [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn" (onChange)="filterFeedByTags()"></p-toggleButton>
+              <p-toggleButton onLabel="ANY" offLabel="ALL"
+                    [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn"
+                    pTooltip="Choose whether tags will be searched in ANY or ALL mode"
+                    tooltipPosition="top"
+                    (onChange)="filterFeedByTags()"></p-toggleButton>
 
               <button *ngIf="uniqueItemTagsSidebarEnabled" pButton type="button" label="Choose Tags"
                       class=" ui-button-info ui-button-raised animated fadeIn"
