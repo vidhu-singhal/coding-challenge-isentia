@@ -24,6 +24,12 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import {DropdownModule} from 'primeng/dropdown';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {FieldsetModule} from 'primeng/fieldset';
+import {SidebarModule} from 'primeng/sidebar';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {ChipsModule} from 'primeng/chips';
+import {CardModule} from 'primeng/card';
+
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -64,6 +70,11 @@ import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/materi
     DropdownModule,
     ToggleButtonModule,
     SelectButtonModule,
+    FieldsetModule,
+    SidebarModule,
+    InputSwitchModule,
+    ChipsModule,
+    CardModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

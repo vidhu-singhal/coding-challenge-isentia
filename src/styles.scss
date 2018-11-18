@@ -2,3 +2,23 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+legend {
+  font-size: 1em;
+}
+
+.ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container .ui-autocomplete-token {
+  margin-bottom: 3px !important;
+}
+
+.mat-chip:not(.mat-basic-chip) {
+  box-shadow: 0 3px 3px -2px rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 1px 8px 0 rgba(0, 0, 0, .12);
+  outline: 0;
+  background: #ffffff;
+  padding: 6px 11px !important;
+  font-size: 12px !important;
+  user-select: none;
+  mat-icon {
+    font-size: 20px;
+  }
+}

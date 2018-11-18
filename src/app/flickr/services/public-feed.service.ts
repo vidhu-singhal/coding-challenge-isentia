@@ -96,7 +96,7 @@ export class PublicFeedService {
     'published': '2018-11-17T01:56:41Z',
     'author': 'nobody@flickr.com ("Boot Seem")',
     'author_id': '10194419@N00',
-    'tags': 'olden2'
+    'tags': 'olden2 railways'
   }, {
     'title': 'everydays / arbor sanctuary',
     'link': 'https://www.flickr.com/photos/68405323@N06/45002921155/',

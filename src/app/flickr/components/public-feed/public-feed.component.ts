@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {PublicFeedService} from '../../services/public-feed.service';
 import {ConfirmationService, MessageService, SelectItem} from 'primeng/api';
 
@@ -22,10 +22,9 @@ export enum SearchType {
         query(':enter', style({opacity: 0}), {optional: true}),
 
         group([
-          query(':enter', stagger('30ms', [
+          query(':enter', stagger('40ms', [
             animate('200ms ease-in', keyframes([
-              style({opacity: 0.5, transform: 'scale(0.5)', offset: 0, position: "relative", top: "20px"}),
-              // style({opacity: 0.7, transform: 'scale(0.7)', offset: 0.5, position: "relative", top: "-20px"}),
+              style({opacity: 0.5, transform: 'scale(0.2)', offset: 0, position: "relative", top: "20px"}),
               style({opacity: 1.0, transform: 'scale(1.0)', offset: 1.0, position: "unset", top: "0px"}),
             ])), animateChild()
           ]), {optional: true}),
@@ -37,7 +36,12 @@ export enum SearchType {
 
 })
 export class PublicFeedComponent implements OnInit {
-  public implementations: SelectItem[] = [];
+  public displaySettingsSidebar: boolean = false;
+  public uniqueItemTagsSidebarEnabled: boolean = false;
+  public displayUniqueItemTagsSidebar: boolean = false;
+  public uniqueItemTagsFieldSetEnabled: boolean = false;
+  public uniqueItemTagsMultiSelectEnabled: boolean = false;
+  public liveSearchEnabled: boolean = false;
 
   public loading: boolean = false;
 
@@ -47,6 +51,7 @@ export class PublicFeedComponent implements OnInit {
 
   public searchTags: string[] = []; //
   public filteredItemTags: string[] = []; // Tag search auto-complete dropdown results
+  public isORBasedTagSearch: boolean = false;
   public searchType: SearchType = SearchType.OR; // Whether search tags will be used for 'OR' based search or 'AND' based search
   public searchTypes: SelectItem[] = [];
 
@@ -114,10 +119,16 @@ export class PublicFeedComponent implements OnInit {
 
   public filterFeedByTags() {
     this.shownFeed = this.searchTags.length == 0 ? this.feed : this.feed.filter(item => {
-      let matched: boolean = false;
+      let matched: boolean = this.isORBasedTagSearch ? false : true;
       this.searchTags.forEach(searchTag => {
         let itemTags: string[] = item.tags.split(' ');
-        matched = itemTags.filter(itemTag => itemTag.trim().toLowerCase() == searchTag.trim().toLowerCase()).length > 0;
+        let searchTagMatched = itemTags.filter(itemTag => itemTag.trim().toLowerCase() == searchTag.trim().toLowerCase()).length > 0;
+
+        if(this.isORBasedTagSearch) {
+          matched = matched || searchTagMatched;
+        } else {
+          matched = matched && searchTagMatched;
+        }
       });
       return matched;
     });
@@ -139,11 +150,38 @@ export class PublicFeedComponent implements OnInit {
   }
 
   public removeSearchTag(tag: string) {
-    this.searchTags.slice(this.searchTags.indexOf(tag), 1);
+    this.searchTags.splice(this.searchTags.indexOf(tag), 1);
     this.filterFeedByTags();
   }
 
-  public contains(tag: string) {
+  public toggleSearchTag(tag: string) {
+    if(this.searchTagsContains(tag)) {
+      this.removeSearchTag(tag);
+    } else {
+      this.addSearchTag(tag);
+    }
+  }
+
+  public searchTagsContains(tag: string) {
     return this.searchTags.indexOf(tag) != -1;
   }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    //TODO:vsinghal - Find better alternative
+    if(event.keyCode == 27) { // Escape Key
+      this.displayUniqueItemTagsSidebar = false;
+      this.displaySettingsSidebar = false;
+    }
+
+    if(event.altKey) {
+      switch (event.keyCode) {
+        case 83: // Alt + S
+          this.displaySettingsSidebar = !this.displaySettingsSidebar;
+          break;
+      }
+    }
+
+  }
+
 }
