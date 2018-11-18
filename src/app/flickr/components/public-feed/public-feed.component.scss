@@ -29,3 +29,9 @@ span.remove {
 ::ng-deep .ui-inputtext.ui-state-default.ui-corner-all {
   width: 100%;
 }
+
+.mat-chip.mat-standard-chip {
+  &.added {
+    background-color: #8BC34A;
+  }
+}

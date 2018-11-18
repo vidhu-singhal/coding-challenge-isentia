@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {PublicFeedComponent} from './flickr/components/flickr/public-feed/public-feed.component';
+import {PublicFeedComponent} from './flickr/components/public-feed/public-feed.component';
 import {RoutingModule} from './routing/routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -13,7 +13,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
-import {ChipsModule} from 'primeng/chips';
 import {DataViewModule} from 'primeng/dataview';
 import {TooltipModule} from 'primeng/tooltip';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
@@ -22,6 +21,9 @@ import {ToastModule} from 'primeng/toast';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {MultiSelectModule} from 'primeng/multiselect';
+import {DropdownModule} from 'primeng/dropdown';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -52,7 +54,6 @@ import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/materi
     ButtonModule,
     MessagesModule,
     MessageModule,
-    ChipsModule,
     DataViewModule,
     TooltipModule,
     ConfirmDialogModule,
@@ -60,6 +61,9 @@ import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/materi
     ProgressBarModule,
     AutoCompleteModule,
     MultiSelectModule,
+    DropdownModule,
+    ToggleButtonModule,
+    SelectButtonModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

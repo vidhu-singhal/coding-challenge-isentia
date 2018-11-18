@@ -2,11 +2,13 @@
 
   <div class="ui-g" *ngIf="uniqueItemTags?.length > 0">
     <mat-chip-list matPrefix [selectable]="true" [@bubbleAnimation]="uniqueItemTags.length">
-      <mat-chip *ngFor="let uniqueTag of uniqueItemTags" [selectable]="true" [removable]="true" color="primary"
-                [selected]="false">
+      <mat-chip *ngFor="let uniqueTag of uniqueItemTags" [selectable]="true" [removable]="true" color="accent"
+                [selected]="false"
+                [ngClass]="{'added': contains(uniqueTag)}">
         <i class="pi pi-tag"></i>
         <span>{{uniqueTag}}</span>
-        <i class="pi pi-plus-circle" pTooltip="Select" tooltipPosition="top" (click)="addSearchTag(uniqueTag)"></i>
+        <i class="pi pi-plus-circle" *ngIf="!contains(uniqueTag)" pTooltip="Add to Search" tooltipPosition="top" (click)="addSearchTag(uniqueTag)"></i>
+        <i class="pi pi-minus-circle" *ngIf="contains(uniqueTag)" pTooltip="Remove from Search" tooltipPosition="top" (click)="removeSearchTag(uniqueTag)"></i>
       </mat-chip>
     </mat-chip-list>
   </div>
@@ -18,32 +20,33 @@
     <p-header>
       <div class="ui-g">
         <div class="ui-g-4">
-          <p-multiSelect [options]="uniqueItemTags" [(ngModel)]="searchTags">
-            <ng-template let-uniqueItemTag let-i="index" pTemplate="item">
-              {{uniqueItemTag}}
-            </ng-template>
-            <!--<ng-template let-searchTags pTemplate="selectedItems">-->
-              <!--<span *ngFor="let searchTag of searchTags">{{searchTag}}</span>-->
-            <!--</ng-template>-->
-          </p-multiSelect>
+          <p-multiSelect
+            [options]="uniqueItemTagsSelectItems"
+            [(ngModel)]="searchTags"
+            defaultLabel="Choose tags"
+            selectedItemsLabel="{0} tag(s) selected"
+            maxSelectedLabels="0"></p-multiSelect>
+
+          <!--<p-dropdown [options]="uniqueItemTags" [(ngModel)]="searchTags""></p-dropdown>-->
         </div>
         <div class="ui-g-4" style="position: relative">
-          <!--<p-chips [(ngModel)]="searchTags"-->
-                   <!--[allowDuplicate]="false"-->
-                   <!--[addOnTab]="true" [addOnBlur]="true"-->
-                   <!--(onAdd)="filterFeedByTags()"-->
-                   <!--(onRemove)="filterFeedByTags()">-->
-          <!--</p-chips>-->
-
           <div class="ui-inputgroup">
             <i class="pi pi-tags" style="font-size: 2.5em"></i>
             <p-autoComplete [(ngModel)]="searchTags" [suggestions]="filteredItemTags" (completeMethod)="filterItemTags($event)"
                             (onSelect)="filterFeedByTags()"
                             (onUnselect)="filterFeedByTags()"
                             [minLength]="1" placeholder="Type to get Tags suggestions" [multiple]="true">
+              <ng-template let-searchTag pTemplate="selectedItem">
+                <div class="ui-helper-clearfix">
+                  <span style="margin-right: 18px;">
+                    <i class="pi pi-tag"></i> {{searchTag}}
+                  </span>
+                </div>
+              </ng-template>
             </p-autoComplete>
-          </div>
 
+            <p-selectButton [options]="searchTypes" [(ngModel)]="searchType"></p-selectButton>
+          </div>
 
           <span *ngIf="searchTags?.length > 0" class="remove" pTooltip="Click to remove all tags" (click)="removeAllSearchTags()">&times;</span>
         </div>

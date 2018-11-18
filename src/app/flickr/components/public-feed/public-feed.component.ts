@@ -1,11 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {PublicFeedService} from '../../../services/public-feed.service';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {PublicFeedService} from '../../services/public-feed.service';
+import {ConfirmationService, MessageService, SelectItem} from 'primeng/api';
 
 import {animate, animateChild, group, keyframes, query, stagger, style, transition, trigger} from '@angular/animations';
 import {MatSnackBar} from '@angular/material';
 import {timer} from 'rxjs';
 
+
+export enum SearchType {
+  OR,
+  AND
+}
 
 @Component({
   selector: 'app-flickr-public-feed',
@@ -32,19 +37,29 @@ import {timer} from 'rxjs';
 
 })
 export class PublicFeedComponent implements OnInit {
+  public implementations: SelectItem[] = [];
+
   public loading: boolean = false;
 
-  public searchTags: string[] = [];
-  public filteredItemTags: string[] = [];
-  public uniqueItemTags: string[] = [];
+  public feed: any[]; // Processed feed received from service
+  public uniqueItemTags: string[] = []; // Unique feed item tags extracted from feed
+  public uniqueItemTagsSelectItems: SelectItem[] = [];
+
+  public searchTags: string[] = []; //
+  public filteredItemTags: string[] = []; // Tag search auto-complete dropdown results
+  public searchType: SearchType = SearchType.OR; // Whether search tags will be used for 'OR' based search or 'AND' based search
+  public searchTypes: SelectItem[] = [];
 
   public shownFeed: any[];
-  public feed: any[];
 
   constructor(protected publicFeedService: PublicFeedService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
               private snackBar: MatSnackBar) {
+
+    this.searchTypes = [];
+    this.searchTypes.push({label: 'OR', value: SearchType.OR});
+    this.searchTypes.push({label: 'AND', value: SearchType.AND});
   }
 
   ngOnInit() {
@@ -79,6 +94,10 @@ export class PublicFeedComponent implements OnInit {
 
     this.uniqueItemTags = Array.from(uniqueItemTags);
 
+    this.uniqueItemTagsSelectItems = [];
+    this.uniqueItemTags.forEach(uniqueItemTag => {
+      this.uniqueItemTagsSelectItems.push({label: uniqueItemTag, value: uniqueItemTag});
+    });
     // this.uniqueItemTags = this.uniqueItemTags.slice(0, Math.min(5, this.uniqueItemTags.length));
   }
 
@@ -117,5 +136,14 @@ export class PublicFeedComponent implements OnInit {
   public addSearchTag(tag: string) {
     this.searchTags.push(tag);
     this.filterFeedByTags();
+  }
+
+  public removeSearchTag(tag: string) {
+    this.searchTags.slice(this.searchTags.indexOf(tag), 1);
+    this.filterFeedByTags();
+  }
+
+  public contains(tag: string) {
+    return this.searchTags.indexOf(tag) != -1;
   }
 }
