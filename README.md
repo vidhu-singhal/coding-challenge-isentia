@@ -1,6 +1,6 @@
 # coding-challenge-isentia
 
-This is sample code base for Isentia Code Challenge ()
+This is sample code base for Isentia Code Challenge (https://github.com/Isentia/Coding-Challenge/blob/master/Software-Engineer-Full-Stack-JavaScript-Coding-Challenge.md)
 
 # Features
 
