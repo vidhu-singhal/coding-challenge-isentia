@@ -109,13 +109,13 @@
 
       <ng-template let-item pTemplate="listItem">
         <div class="text-center">
-          <app-feed-item [item]="item" [searchTags]="searchTags"></app-feed-item>
+          <app-feed-item [item]="item" [searchTags]="searchTags" (searchTagToggled)="toggleSearchTag($event)"></app-feed-item>
         </div>
       </ng-template>
 
       <ng-template let-item pTemplate="gridItem">
         <div class="ui-g-12 ui-md-3">
-          <app-feed-item [item]="item" [searchTags]="searchTags"></app-feed-item>
+          <app-feed-item [item]="item" [searchTags]="searchTags" (searchTagToggled)="toggleSearchTag($event)"></app-feed-item>
         </div>
       </ng-template>
     </p-dataView>
