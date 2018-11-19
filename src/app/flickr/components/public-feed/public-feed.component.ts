@@ -181,7 +181,13 @@ export class PublicFeedComponent implements OnInit {
   }
 
   public searchTagsContains(tag: string) {
-    return this.searchTags.indexOf(tag.toLowerCase()) !== -1;
+    for (let i = 0; i < this.searchTags.length; i++) {
+      const searchTag = this.searchTags[i];
+      if (searchTag.trim().toLowerCase() === tag.trim().toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   liveSearch() {
