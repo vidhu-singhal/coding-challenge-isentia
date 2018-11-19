@@ -62,9 +62,9 @@
                   (onSelect)="filterLoadedFeedItemsByTags()"
                   (onUnselect)="filterLoadedFeedItemsByTags()"
                   [minLength]="1"
-                  pTooltip="Type to get tag suggestions (for loaded feed items)"
+                  pTooltip="Type to get tag suggestions (for already loaded feed items)"
                   tooltipPosition="top"
-                  placeholder="Type to get tag suggestions (for loaded feed items)" [multiple]="true">
+                  placeholder="Type to get tag suggestions (for already loaded feed items)" [multiple]="true">
                 <ng-template let-searchTag pTemplate="selectedItem">
                   <div class="ui-helper-clearfix">
                     <span class="search-tag">
@@ -97,9 +97,9 @@
                   icon="pi pi-times-circle"
                   pTooltip="Click to remove all tags" (click)="removeAllSearchTags()"></p-button>
 
-              <p-toggleButton onLabel="ANY" offLabel="ALL"
+              <p-toggleButton onLabel="All" offLabel="Any"
                     [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn"
-                    pTooltip="Choose whether tags will be searched in ANY or ALL mode"
+                    pTooltip="Click to match {{isORBasedTagSearch ? 'any tag' : 'all tags'}}"
                     tooltipPosition="top"
                     (onChange)="changeTagMode()"></p-toggleButton>
 
