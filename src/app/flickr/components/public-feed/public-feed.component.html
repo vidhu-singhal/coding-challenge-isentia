@@ -44,7 +44,6 @@
              (onChange)="liveSearchOrFilter()"
               maxSelectedLabels="0"></p-multiSelect>
 
-            <!--<p-dropdown [options]="uniqueItemTags" [(ngModel)]="searchTags""></p-dropdown>-->
           </div>
           <div class="ui-g-6" style="position: relative">
             <div class="ui-inputgroup">
@@ -155,7 +154,7 @@
           <label for="liveSearchEnabled">Enable Live Search</label>
         </div>
         <div class="ui-g-3">
-          <p-inputSwitch [(ngModel)]="liveSearchEnabled" id="liveSearchEnabled"></p-inputSwitch>
+          <p-inputSwitch [(ngModel)]="liveSearchEnabled" id="liveSearchEnabled" (onChange)="liveSearchOrFilter()"></p-inputSwitch>
         </div>
       </div>
     </div>

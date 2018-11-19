@@ -27,14 +27,12 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {ChipsModule} from 'primeng/chips';
 import {CardModule} from 'primeng/card';
 
-
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/material';
-import { FeedItemComponent } from './flickr/components/feed-item/feed-item.component';
-import {UtilService} from './util/services/util.service';
+import {FeedItemComponent} from './flickr/components/feed-item/feed-item.component';
 
 @NgModule({
   declarations: [
