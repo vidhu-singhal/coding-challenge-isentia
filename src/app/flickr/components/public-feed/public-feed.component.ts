@@ -38,7 +38,7 @@ export class PublicFeedComponent implements OnInit {
   uniqueItemTagsSidebarEnabled = false; // Boolean to govern whether Unique Item Tags Sidebar is enabled
   displayUniqueItemTagsSidebar = false; // Boolean to govern visibility of Unique Item Tags Sidebar
   uniqueItemTagsFieldSetEnabled = false; // Boolean to govern whether Unique Item Tags FieldSet is enabled
-  uniqueItemTagsMultiSelectEnabled = false; // Boolean to govern whether Unique Tags Multi-Select is enabled
+  uniqueItemTagsMultiSelectEnabled = true; // Boolean to govern whether Unique Tags Multi-Select is enabled
   liveSearchEnabled = false; // Boolean to govern whether live search will be performed on the input of tags
 
   loading = false;

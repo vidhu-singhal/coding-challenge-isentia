@@ -97,16 +97,17 @@
                   icon="pi pi-times-circle"
                   pTooltip="Click to remove all tags" (click)="removeAllSearchTags()"></p-button>
 
-              <p-toggleButton onLabel="All" offLabel="Any"
+              <p-toggleButton onLabel="Any" offLabel="All"
                     [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn"
                     pTooltip="Click to match {{isORBasedTagSearch ? 'any tag' : 'all tags'}}"
                     tooltipPosition="top"
                     (onChange)="changeTagMode()"></p-toggleButton>
 
-              <button *ngIf="uniqueItemTagsSidebarEnabled" pButton type="button" label="Choose Tags"
-                      class=" ui-button-info ui-button-raised animated fadeIn"
-                      (click)="displayUniqueItemTagsSidebar=!displayUniqueItemTagsSidebar"></button>
-
+              <div>
+                <button *ngIf="uniqueItemTagsSidebarEnabled" pButton type="button" label="Choose Tags"
+                    class=" ui-button-info ui-button-raised animated fadeIn"
+                    (click)="displayUniqueItemTagsSidebar=!displayUniqueItemTagsSidebar"></button>
+              </div>
             </div>
           </div>
           <div class="ui-g-3 text-right">
