@@ -21,8 +21,8 @@ import {Subject} from 'rxjs';
         group([
           query(':enter', stagger('40ms', [
             animate('200ms ease-in', keyframes([
-              style({opacity: 0.5, transform: 'scale(0.2)', offset: 0, position: "relative", top: "20px"}),
-              style({opacity: 1.0, transform: 'scale(1.0)', offset: 1.0, position: "unset", top: "0px"}),
+              style({opacity: 0.5, transform: 'scale(0.2)', offset: 0, position: 'relative', top: '20px'}),
+              style({opacity: 1.0, transform: 'scale(1.0)', offset: 1.0, position: 'unset', top: '0px'}),
             ])), animateChild()
           ]), {optional: true}),
         ])
@@ -33,14 +33,14 @@ import {Subject} from 'rxjs';
 
 })
 export class PublicFeedComponent implements OnInit {
-  public displaySettingsSidebar: boolean = false;
-  public uniqueItemTagsSidebarEnabled: boolean = false;
-  public displayUniqueItemTagsSidebar: boolean = false;
-  public uniqueItemTagsFieldSetEnabled: boolean = false;
-  public uniqueItemTagsMultiSelectEnabled: boolean = false;
-  public liveSearchEnabled: boolean = false;
+  public displaySettingsSidebar = false;
+  public uniqueItemTagsSidebarEnabled = false;
+  public displayUniqueItemTagsSidebar = false;
+  public uniqueItemTagsFieldSetEnabled = false;
+  public uniqueItemTagsMultiSelectEnabled = false;
+  public liveSearchEnabled = false;
 
-  public loading: boolean = false;
+  public loading = false;
 
   public feedItems: any[]; // Processed feedItems received from service
   public shownFeedItems: any[];
@@ -50,7 +50,7 @@ export class PublicFeedComponent implements OnInit {
   public searchTags: string[] = []; //
   public filteredItemTags: string[] = []; // Tag search auto-complete dropdown results
 
-  public isORBasedTagSearch: boolean = false;
+  public isORBasedTagSearch = false;
 
   liveSearchTagsSource = new Subject<string[]>();
 
@@ -66,16 +66,15 @@ export class PublicFeedComponent implements OnInit {
     this.loading = true;
     this.openSnackBar('Loading Flickr Public Feed...', {});
 
-    let feedObserver = {
+    const feedObserver = {
       next: feed => {
         this.loading = false;
         this.processFeed(feed);
-        // this.messageService.add({key: 'operation-status', severity:'success', summary: 'Success', detail: 'Flickr Public Feed loaded successfully!'});
-        this.openSnackBar('Flickr Public Feed loaded successfully' + (this.searchTags && this.searchTags.length > 0 ? ' based on tags [' + this.searchTags.join(', ') + ']!' : '!'));
+        this.openSnackBar('Flickr Public Feed loaded successfully'
+          + (this.searchTags && this.searchTags.length > 0 ? ' based on tags [' + this.searchTags.join(', ') + ']!' : '!'));
       },
       error: error => {
         this.loading = false;
-        // this.messageService.add({key: 'operation-status', severity:'error', summary: 'Error', detail: 'Error occurred while loading Flickr Public Feed!'});
         this.openSnackBar('Error occurred while loading Flickr Public Feed!');
       }
     };
@@ -95,13 +94,13 @@ export class PublicFeedComponent implements OnInit {
     this.feedItems = feed.items;
     this.shownFeedItems = this.feedItems;
 
-    let uniqueItemTags: Set<string> = new Set<string>();
+    const uniqueItemTags: Set<string> = new Set<string>();
 
     this.feedItems.forEach(item => {
-      let itemTags: string[] = item.tags.split(' ');
+      const itemTags: string[] = item.tags.split(' ');
 
       itemTags.forEach(itemTag => {
-        if(itemTag && itemTag.trim() != '') {
+        if (itemTag && itemTag.trim() !== '') {
           uniqueItemTags.add(itemTag);
         }
       });
@@ -117,25 +116,25 @@ export class PublicFeedComponent implements OnInit {
   }
 
   public filterItemTags(event) {
-    let query = event.query;
-    this.filteredItemTags = this.uniqueItemTags.filter(itemTag => itemTag.trim().toLowerCase().indexOf(query) != -1);
+    const searchQuery = event.query;
+    this.filteredItemTags = this.uniqueItemTags.filter(itemTag => itemTag.trim().toLowerCase().startsWith(searchQuery.toLowerCase()));
   }
 
   private openSnackBar(message: string, config?: any) {
-    let configuration = config || {
+    const configuration = config || {
       duration: 3000
     };
     this.snackBar.open(message, 'OK', configuration);
   }
 
   public filterFeedItemsByTags() {
-    this.shownFeedItems = this.searchTags.length == 0 ? this.feedItems : this.feedItems.filter(item => {
+    this.shownFeedItems = this.searchTags.length === 0 ? this.feedItems : this.feedItems.filter(item => {
       let matched: boolean = this.isORBasedTagSearch ? false : true; // Default matched values for ANY and ALL based search
       this.searchTags.forEach(searchTag => {
-        let itemTags: string[] = item.tags.split(' ');
-        let searchTagMatched = itemTags.filter(itemTag => itemTag.trim().toLowerCase() == searchTag.trim().toLowerCase()).length > 0;
+        const itemTags: string[] = item.tags.split(' ');
+        const searchTagMatched = itemTags.filter(itemTag => itemTag.trim().toLowerCase() === searchTag.trim().toLowerCase()).length > 0;
 
-        if(this.isORBasedTagSearch) {
+        if (this.isORBasedTagSearch) {
           matched = matched || searchTagMatched;
         } else {
           matched = matched && searchTagMatched;
@@ -174,7 +173,7 @@ export class PublicFeedComponent implements OnInit {
   }
 
   public toggleSearchTag(tag: string) {
-    if(this.searchTagsContains(tag)) {
+    if (this.searchTagsContains(tag)) {
       this.removeSearchTag(tag);
     } else {
       this.addSearchTag(tag);
@@ -182,23 +181,23 @@ export class PublicFeedComponent implements OnInit {
   }
 
   public searchTagsContains(tag: string) {
-    return this.searchTags.indexOf(tag) != -1;
+    return this.searchTags.indexOf(tag.toLowerCase()) !== -1;
   }
 
-  liveSearch(){
+  liveSearch() {
     this.liveSearchTagsSource.next([...this.searchTags]);
     this.loading = true;
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    //TODO:vsinghal - Find better alternative
-    if(event.keyCode == 27) { // Escape Key
+    // TODO:vsinghal - Find better alternative
+    if (event.keyCode === 27) { // Escape Key
       this.displayUniqueItemTagsSidebar = false;
       this.displaySettingsSidebar = false;
     }
 
-    if(event.altKey) {
+    if (event.altKey) {
       switch (event.keyCode) {
         case 83: // Alt + S
           this.displaySettingsSidebar = !this.displaySettingsSidebar;

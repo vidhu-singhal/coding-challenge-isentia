@@ -16,10 +16,10 @@ export class PublicFeedService {
   public getPublicFeed(tags: string[], tagmode?: string): Observable<any> {
     let url: string = environment.backendUrl + '/flickr/public';
 
-    if(tags) {
+    if (tags) {
       url += `?tags=${tags.join(',')}`;
 
-      if(tagmode) {
+      if (tagmode) {
         url += `&tagmode=${tagmode}`;
       }
     }
