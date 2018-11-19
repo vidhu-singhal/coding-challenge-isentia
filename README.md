@@ -38,12 +38,12 @@ $ ng build --prod
 
 # Todos
 
- - Write Tests
+ - Write Unit Tests
  - Apply retry logic based on https://angular.io/guide/practical-observable-usage#exponential-backoff
- - Fix Parameter Encoding (Right now Chinese character based tags won't work)
- - jsonFlickrFeed from Flickr removed in a hacky way need to improvise on that
- - Visit component to set correct visibility to method (public/protected/default/private)
+ - Fix Parameter Encoding (for example, right now Chinese character based tags won't work)
+ - jsonFlickrFeed (function wrapper around data) from Flickr removed in a hacky way - need to improvise on that
+ - Visit component to set correct visibility of methods (public/protected/default/private)
  - There is scope for optimizations and code refactoring
- - Common array/string operation can be done using lodash
+ - Common array/string operations can be done using lodash
  - PublicFeedComponent and Service can be refactored out in a feature module and lazily loaded using loadChildren - currently not done being the only module
  - There is scope for better error handling
