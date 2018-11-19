@@ -8,8 +8,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import {ButtonModule} from 'primeng/button';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
@@ -17,7 +15,6 @@ import {DataViewModule} from 'primeng/dataview';
 import {TooltipModule} from 'primeng/tooltip';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService, MessageService} from 'primeng/api';
-import {ToastModule} from 'primeng/toast';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {MultiSelectModule} from 'primeng/multiselect';
@@ -36,34 +33,39 @@ import { environment } from '../environments/environment';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/material';
+import { FeedItemComponent } from './flickr/components/feed-item/feed-item.component';
+import {UtilService} from './util/services/util.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PublicFeedComponent
+    PublicFeedComponent,
+    FeedItemComponent
   ],
   imports: [
+    // Angular Modules
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+
+    // Routing Module
     RoutingModule,
 
-    NgbModule,
-
+    // Angular Material Modules
     MatSnackBarModule,
     MatChipsModule,
     MatFormFieldModule,
     MatIconModule,
 
+    // PrimeNG Modules
     ButtonModule,
     MessagesModule,
     MessageModule,
     DataViewModule,
     TooltipModule,
     ConfirmDialogModule,
-    ToastModule,
     ProgressBarModule,
     AutoCompleteModule,
     MultiSelectModule,
@@ -76,6 +78,7 @@ import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/materi
     ChipsModule,
     CardModule,
 
+    // Service Worker for potential caching of resources
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

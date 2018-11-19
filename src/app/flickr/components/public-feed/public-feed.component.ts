@@ -7,6 +7,7 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {animate, animateChild, group, keyframes, query, stagger, style, transition, trigger} from '@angular/animations';
 import {MatSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
+import {UtilService} from '../../../util/services/util.service';
 
 
 @Component({
@@ -33,24 +34,24 @@ import {Subject} from 'rxjs';
 
 })
 export class PublicFeedComponent implements OnInit {
-  public displaySettingsSidebar = false;
-  public uniqueItemTagsSidebarEnabled = false;
-  public displayUniqueItemTagsSidebar = false;
-  public uniqueItemTagsFieldSetEnabled = false;
-  public uniqueItemTagsMultiSelectEnabled = false;
-  public liveSearchEnabled = false;
+  displaySettingsSidebar = false; // Boolean to govern visibility of Settings Sidebar
+  uniqueItemTagsSidebarEnabled = false; // Boolean to govern whether Unique Item Tags Sidebar is enabled
+  displayUniqueItemTagsSidebar = false; // Boolean to govern visibility of Unique Item Tags Sidebar
+  uniqueItemTagsFieldSetEnabled = false; // Boolean to govern whether Unique Item Tags FieldSet is enabled
+  uniqueItemTagsMultiSelectEnabled = false; // Boolean to govern whether Unique Tags Multi-Select is enabled
+  liveSearchEnabled = false; // Boolean to govern whether live search will be performed on the input of tags
 
-  public loading = false;
+  loading = false;
 
-  public feedItems: any[]; // Processed feedItems received from service
-  public shownFeedItems: any[];
-  public uniqueItemTags: string[] = []; // Unique feedItems item tags extracted from feedItems
+  feedItems: any[]; // Processed feedItems received from service
+  shownFeedItems: any[]; // Shown feedItems on UI (based on filter specified by auto-complete Dropdown)
+  uniqueItemTags: string[] = []; // Unique feedItems item tags extracted from feedItems
 
-  public uniqueItemTagsSelectItems: SelectItem[] = [];
-  public searchTags: string[] = []; //
-  public filteredItemTags: string[] = []; // Tag search auto-complete dropdown results
+  uniqueItemTagsSelectItems: SelectItem[] = []; // Required for Multi-Select
+  searchTags: string[] = []; // Supplied tags to be searched
+  filteredItemTags: string[] = []; // Tag search auto-complete Dropdown results
 
-  public isORBasedTagSearch = false;
+  isORBasedTagSearch = false; // Decides whether tagmode for Flickr Feed is 'any' or 'all'
 
   liveSearchTagsSource = new Subject<string[]>();
 
@@ -59,41 +60,43 @@ export class PublicFeedComponent implements OnInit {
   constructor(protected publicFeedService: PublicFeedService,
               private confirmationService: ConfirmationService,
               private messageService: MessageService,
+              private utilService: UtilService,
               private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.loading = true;
-    this.openSnackBar('Loading Flickr Public Feed...', {});
+    this.openSnackBar('Loading Flickr Feed...', {});
 
     const feedObserver = {
       next: feed => {
         this.loading = false;
         this.processFeed(feed);
-        this.openSnackBar('Flickr Public Feed loaded successfully'
+        this.openSnackBar('Flickr Feed loaded successfully'
           + (this.searchTags && this.searchTags.length > 0 ? ' based on tags [' + this.searchTags.join(', ') + ']!' : '!'));
       },
       error: error => {
         this.loading = false;
-        this.openSnackBar('Error occurred while loading Flickr Public Feed!');
+        this.openSnackBar('Error occurred while loading Flickr Feed!');
       }
     };
 
     this.publicFeedService.getPublicFeed(null).subscribe(feedObserver);
 
     this.liveSearchTags$.pipe(
-      // filter(text => text.length > 2),
-      debounceTime(100),
-      distinctUntilChanged(),
+      debounceTime(100), // 100ms apart inputs to be considered
+      distinctUntilChanged(), // No need to issue http call if input is not changed
       switchMap(() => this.publicFeedService.getPublicFeed(this.searchTags, this.isORBasedTagSearch ? 'any' : 'all'))
     ).subscribe(feedObserver);
 
   }
 
+  // Process feed to populate feedItems, shownFeedItems, uniqueItemTags and uniqueItemTagsSelectItems
   private processFeed(feed) {
     this.feedItems = feed.items;
     this.shownFeedItems = this.feedItems;
 
+    // Collecting all unique tags
     const uniqueItemTags: Set<string> = new Set<string>();
 
     this.feedItems.forEach(item => {
@@ -108,26 +111,21 @@ export class PublicFeedComponent implements OnInit {
 
     this.uniqueItemTags = Array.from(uniqueItemTags);
 
+    // This is needed for the item multi-select
     this.uniqueItemTagsSelectItems = [];
     this.uniqueItemTags.forEach(uniqueItemTag => {
       this.uniqueItemTagsSelectItems.push({label: uniqueItemTag, value: uniqueItemTag});
     });
-    // this.uniqueItemTags = this.uniqueItemTags.slice(0, Math.min(5, this.uniqueItemTags.length));
   }
 
-  public filterItemTags(event) {
+  // Get Auto-complete suggestions
+  getTagsAutoCompleteSuggestions(event) {
     const searchQuery = event.query;
     this.filteredItemTags = this.uniqueItemTags.filter(itemTag => itemTag.trim().toLowerCase().startsWith(searchQuery.toLowerCase()));
   }
 
-  private openSnackBar(message: string, config?: any) {
-    const configuration = config || {
-      duration: 3000
-    };
-    this.snackBar.open(message, 'OK', configuration);
-  }
-
-  public filterFeedItemsByTags() {
+  // Filter items based on search tags provided (in Auto-complete mode)
+  filterLoadedFeedItemsByTags() {
     this.shownFeedItems = this.searchTags.length === 0 ? this.feedItems : this.feedItems.filter(item => {
       let matched: boolean = this.isORBasedTagSearch ? false : true; // Default matched values for ANY and ALL based search
       this.searchTags.forEach(searchTag => {
@@ -144,50 +142,41 @@ export class PublicFeedComponent implements OnInit {
     });
   }
 
-  public changeTagMode() {
-    this.loadOrFilter();
+  // Called when tagmode is changed (from any to all, or vice versa)
+  changeTagMode() {
+    this.liveSearchOrFilter();
   }
 
-  public loadOrFilter() {
-    this.liveSearchEnabled ? this.liveSearch() : this.filterFeedItemsByTags();
+  liveSearchOrFilter() {
+    this.liveSearchEnabled ? this.liveSearch() : this.filterLoadedFeedItemsByTags();
   }
 
-  public removeAllSearchTags() {
+  removeAllSearchTags() {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to remove all Search Tags?',
       accept: () => {
         this.searchTags = [];
-        this.loadOrFilter();
+        this.liveSearchOrFilter();
       }
     });
   }
 
-  public addSearchTag(tag: string) {
+  addSearchTag(tag: string) {
     this.searchTags.push(tag);
-    this.loadOrFilter();
+    this.liveSearchOrFilter();
   }
 
-  public removeSearchTag(tag: string) {
+  removeSearchTag(tag: string) {
     this.searchTags.splice(this.searchTags.indexOf(tag), 1);
-    this.loadOrFilter();
+    this.liveSearchOrFilter();
   }
 
-  public toggleSearchTag(tag: string) {
-    if (this.searchTagsContains(tag)) {
-      this.removeSearchTag(tag);
-    } else {
-      this.addSearchTag(tag);
-    }
+  toggleSearchTag(tag: string) {
+    this.searchTagsContains(tag) ? this.removeSearchTag(tag) : this.addSearchTag(tag);
   }
 
-  public searchTagsContains(tag: string) {
-    for (let i = 0; i < this.searchTags.length; i++) {
-      const searchTag = this.searchTags[i];
-      if (searchTag.trim().toLowerCase() === tag.trim().toLowerCase()) {
-        return true;
-      }
-    }
-    return false;
+  searchTagsContains(tag: string) {
+    return this.utilService.contains(this.searchTags, tag);
   }
 
   liveSearch() {
@@ -197,18 +186,25 @@ export class PublicFeedComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    // TODO:vsinghal - Find better alternative
-    if (event.keyCode === 27) { // Escape Key
+    // TODO:vsinghal - Find better alternative since keyCode is deprecated now
+    if (event.keyCode === 27) { // Escape Key will hide both uniqueItemTagsSidebar and settingsSidebar
       this.displayUniqueItemTagsSidebar = false;
       this.displaySettingsSidebar = false;
     }
 
     if (event.altKey) {
       switch (event.keyCode) {
-        case 83: // Alt + S
+        case 83: // Alt + S to toggle visibility of settingsSidebar
           this.displaySettingsSidebar = !this.displaySettingsSidebar;
           break;
       }
     }
+  }
+
+  private openSnackBar(message: string, config?: any) {
+    const configuration = config || {
+      duration: 3000
+    };
+    this.snackBar.open(message, 'OK', configuration);
   }
 }

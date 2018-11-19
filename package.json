@@ -24,7 +24,6 @@
     "@angular/pwa": "^0.10.6",
     "@angular/router": "^7.0.4",
     "@angular/service-worker": "^7.0.4",
-    "@ng-bootstrap/ng-bootstrap": "^4.0.0",
     "animate.css": "^3.7.0",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",

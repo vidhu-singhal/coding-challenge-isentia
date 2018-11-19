@@ -41,7 +41,7 @@
               [(ngModel)]="searchTags"
               defaultLabel="Choose tags"
               selectedItemsLabel="{0} tag(s) selected"
-             (onChange)="loadOrFilter()"
+             (onChange)="liveSearchOrFilter()"
               maxSelectedLabels="0"></p-multiSelect>
 
             <!--<p-dropdown [options]="uniqueItemTags" [(ngModel)]="searchTags""></p-dropdown>-->
@@ -49,9 +49,9 @@
           <div class="ui-g-6" style="position: relative">
             <div class="ui-inputgroup">
               <i class="pi pi-tags"></i>
-              <p-autoComplete *ngIf="!liveSearchEnabled" [(ngModel)]="searchTags" [suggestions]="filteredItemTags" (completeMethod)="filterItemTags($event)"
-                              (onSelect)="filterFeedItemsByTags()"
-                              (onUnselect)="filterFeedItemsByTags()"
+              <p-autoComplete *ngIf="!liveSearchEnabled" [(ngModel)]="searchTags" [suggestions]="filteredItemTags" (completeMethod)="getTagsAutoCompleteSuggestions($event)"
+                              (onSelect)="filterLoadedFeedItemsByTags()"
+                              (onUnselect)="filterLoadedFeedItemsByTags()"
                               [minLength]="1" placeholder="Type to get tag suggestions (for loaded feed)" [multiple]="true">
                 <ng-template let-searchTag pTemplate="selectedItem">
                   <div class="ui-helper-clearfix">
@@ -68,8 +68,8 @@
                  placeholder="Tags to live search"
                  pTooltip="Tags to live search (press Enter after each entry)"
                  tooltipPosition="top"
-                 (onAdd)="liveSearch()"
-                 (onRemove)="liveSearch()">
+                 (onAdd)="liveSearch(searchTags)"
+                 (onRemove)="liveSearch(searchTags)">
 
                 <ng-template let-searchTag pTemplate="selectedItem">
                   <div class="ui-helper-clearfix">
@@ -109,53 +109,13 @@
 
       <ng-template let-item pTemplate="listItem">
         <div class="text-center">
-          <p-card>
-            <div class="parent text-center">
-              <div class="child">
-                <img class="img-thumbnail img-responsive" src="{{item.media.m}}"/>
-              </div>
-            </div>
-            <p-footer>
-              <div class="text-center">
-                <div class="small feed-item-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
-                <div class="tags" *ngIf="item.tags?.trim() != ''">
-                  <span *ngFor="let itemTag of item.tags.split(' ')" (click)="toggleSearchTag(itemTag)">
-                    <span class="label label-tag small" *ngIf="itemTag?.trim() != ''"
-                          pTooltip="{{searchTagsContains(itemTag) ? 'Remove from Search' : 'Add to Search'}}" tooltipPosition="top"
-                          [ngClass]="{'added': searchTagsContains(itemTag)}">
-                      <i class="pi pi-tag"></i> {{itemTag}}
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </p-footer>
-          </p-card>
+          <app-feed-item [item]="item" [searchTags]="searchTags"></app-feed-item>
         </div>
       </ng-template>
 
       <ng-template let-item pTemplate="gridItem">
         <div class="ui-g-12 ui-md-3">
-          <p-card>
-            <div class="parent text-center">
-              <div class="child">
-                <img class="img-thumbnail img-responsive" src="{{item.media.m}}"/>
-              </div>
-            </div>
-            <p-footer>
-              <div class="text-center">
-                <div class="small feed-item-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
-                <div class="tags" *ngIf="item.tags?.trim() != ''">
-                  <span *ngFor="let itemTag of item.tags.split(' ')" (click)="toggleSearchTag(itemTag)">
-                    <span class="label label-tag small" *ngIf="itemTag?.trim() != ''"
-                          pTooltip="{{searchTagsContains(itemTag) ? 'Remove from Search' : 'Add to Search'}}" tooltipPosition="top"
-                          [ngClass]="{'added': searchTagsContains(itemTag)}">
-                      <i class="pi pi-tag"></i> {{itemTag}}
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </p-footer>
-          </p-card>
+          <app-feed-item [item]="item" [searchTags]="searchTags"></app-feed-item>
         </div>
       </ng-template>
     </p-dataView>

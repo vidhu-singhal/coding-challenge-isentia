@@ -13,12 +13,15 @@ export class PublicFeedService {
 
   constructor(public httpClient: HttpClient) { }
 
+  // TODO:vsinghal - Can create a model objects for Flickr feed
   public getPublicFeed(tags: string[], tagmode?: string): Observable<any> {
     let url: string = environment.backendUrl + '/flickr/public';
 
+    // Add tags if only present
     if (tags) {
       url += `?tags=${tags.join(',')}`;
 
+      // Add tagmode only if tags are present
       if (tagmode) {
         url += `&tagmode=${tagmode}`;
       }

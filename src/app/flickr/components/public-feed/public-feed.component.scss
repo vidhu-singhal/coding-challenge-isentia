@@ -35,7 +35,7 @@
 
 ::ng-deep p-fieldset {
   width: 100%;
-  max-height: 20vh;
+  max-height: 30vh;
   overflow: auto
 }
 // vsinghal - Not looking good - interfering with image zoom effect
@@ -74,25 +74,6 @@
   margin-right: 18px;
 }
 
-.label-tag {
-  background-color: #505150;
-  display: inline-block;
-  margin: 1px;
-  user-select: none;
-  cursor: pointer;
-  transition: all 200ms ease-in-out;
-
-  &:hover {
-    transform: scale(1.1);
-    background-color: #007ad9;
-  }
-
-  &.added {
-    background-color: #4CAF50;
-    color: white;
-  }
-}
-
 ::ng-deep button.removeAll > span.pi {
   font-size: 2em;
 }
@@ -102,44 +83,6 @@
   border-color: #007ad9 !important;
   color: #ffffff !important;
   margin-left: 4px;
-}
-
-
-.parent {
-  overflow: hidden;
-  position: relative;
-  //cursor: pointer;
-}
-
-.child {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transition: all .5s;
-}
-
-
-.parent:hover .child, .parent:focus .child {
-  transform: scale(1.2);
-}
-
-.parent:hover .child:before, .parent:focus .child:before {
-  display: block;
-}
-
-.parent:hover a, .parent:focus a {
-  display: block;
-}
-
-.child:before {
-  content: "";
-  display: none;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .container {
