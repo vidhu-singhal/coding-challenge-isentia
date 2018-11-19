@@ -6,22 +6,10 @@ import {UtilService} from '../../../util/services/util.service';
   templateUrl: './feed-item.component.html',
   styleUrls: ['./feed-item.component.scss']
 })
-export class FeedItemComponent implements OnInit {
-
+export class FeedItemComponent {
   @Input() item: any;
   @Input() searchTags: string[];
   @Output() searchTagToggled = new EventEmitter();
 
-  constructor(private utilService: UtilService) { }
-
-  ngOnInit() {
-  }
-
-  searchTagsContains(tag: string) {
-    return this.utilService.contains(this.searchTags, tag);
-  }
-
-  toggleSearchTag(itemTag) {
-    this.searchTagToggled.emit(itemTag);
-  }
+  constructor(public utilService: UtilService) { }
 }

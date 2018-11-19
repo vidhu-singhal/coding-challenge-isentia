@@ -4,7 +4,7 @@ import {PublicFeedService} from './public-feed.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {environment} from '../../../environments/environment';
 
-fdescribe('PublicFeedService', () => {
+describe('PublicFeedService', () => {
   let injector: TestBed;
   let httpMock: HttpTestingController;
   let service: PublicFeedService;

@@ -5,7 +5,7 @@ import {ButtonModule} from '../../../../../node_modules/primeng/button';
 import {TooltipModule} from '../../../../../node_modules/primeng/tooltip';
 import {CardModule} from '../../../../../node_modules/primeng/card';
 
-fdescribe('FeedItemComponent', () => {
+describe('FeedItemComponent', () => {
   let component: FeedItemComponent;
   let fixture: ComponentFixture<FeedItemComponent>;
 
@@ -18,7 +18,6 @@ fdescribe('FeedItemComponent', () => {
         TooltipModule,
         CardModule,
       ],
-
     })
     .compileComponents();
   }));
