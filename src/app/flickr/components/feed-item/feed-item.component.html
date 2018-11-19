@@ -8,7 +8,7 @@
     <div class="text-center">
       <div class="small feed-item-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
       <div class="tags" *ngIf="item.tags?.trim() != ''">
-        <span *ngFor="let itemTag of item.tags.split(' ')" (click)="toggleSearchTag(itemTag)">
+        <span *ngFor="let itemTag of item.tags?.split(' ')" (click)="toggleSearchTag(itemTag)">
           <span class="label label-tag small" *ngIf="itemTag?.trim() != ''"
                 pTooltip="{{utilService.contains(searchTags, itemTag) ? 'Remove from Search' : 'Add to Search'}}" tooltipPosition="top"
                 [ngClass]="{'added': searchTagsContains(itemTag)}">
