@@ -1,0 +1,25 @@
+{
+  "name": "coding-challenge-backend",
+  "version": "1.0.0",
+  "description": "NodeJS backend for Isentia Coding Challenge",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vidhu-singhal/coding-challenge-isentia.git"
+  },
+  "author": "Vidhu Singhal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vidhu-singhal/coding-challenge-isentia/issues"
+  },
+  "homepage": "https://github.com/vidhu-singhal/coding-challenge-isentia#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
+  }
+}
