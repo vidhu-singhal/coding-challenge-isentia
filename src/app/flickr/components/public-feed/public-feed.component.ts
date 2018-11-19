@@ -179,6 +179,12 @@ export class PublicFeedComponent implements OnInit {
     return this.utilService.contains(this.searchTags, tag);
   }
 
+  liveSearchOptionChanged() {
+    if (this.searchTags.length > 0) {
+      this.liveSearchOrFilter();
+    }
+  }
+
   liveSearch() {
     this.liveSearchTagsSource.next([...this.searchTags]);
     this.loading = true;

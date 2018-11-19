@@ -31,7 +31,16 @@
 
     <p-progressBar mode="indeterminate" *ngIf="loading" [style]="{'height': '6px'}"></p-progressBar>
 
-    <p-dataView [value]="shownFeedItems" [paginator]="true" [rows]="12" layout="grid" [loading]="loading">
+    <p-dataView [value]="shownFeedItems"
+        [pageLinks]="3"
+        [rowsPerPageOptions]="[8,12,16,20]"
+        paginatorPosition="both"
+        paginatorDropdownAppendTo="body"
+        emptyMessage="No Flickr Items Found"
+        [paginator]="true"
+        [rows]="8"
+        layout="grid"
+        [loading]="loading">
 
       <p-header>
         <div class="ui-g">
@@ -45,13 +54,17 @@
               maxSelectedLabels="0"></p-multiSelect>
 
           </div>
-          <div class="ui-g-6" style="position: relative">
+          <div class="ui-g-6">
             <div class="ui-inputgroup">
               <i class="pi pi-tags"></i>
+
               <p-autoComplete *ngIf="!liveSearchEnabled" [(ngModel)]="searchTags" [suggestions]="filteredItemTags" (completeMethod)="getTagsAutoCompleteSuggestions($event)"
-                              (onSelect)="filterLoadedFeedItemsByTags()"
-                              (onUnselect)="filterLoadedFeedItemsByTags()"
-                              [minLength]="1" placeholder="Type to get tag suggestions (for loaded feed)" [multiple]="true">
+                  (onSelect)="filterLoadedFeedItemsByTags()"
+                  (onUnselect)="filterLoadedFeedItemsByTags()"
+                  [minLength]="1"
+                  pTooltip="Type to get tag suggestions (for loaded feed items)"
+                  tooltipPosition="top"
+                  placeholder="Type to get tag suggestions (for loaded feed items)" [multiple]="true">
                 <ng-template let-searchTag pTemplate="selectedItem">
                   <div class="ui-helper-clearfix">
                     <span class="search-tag">
@@ -64,8 +77,8 @@
               <p-chips *ngIf="liveSearchEnabled"  [(ngModel)]="searchTags"
                  [allowDuplicate]="false"
                  [addOnTab]="false" [addOnBlur]="false"
-                 placeholder="Tags to live search"
-                 pTooltip="Tags to live search (press Enter after each entry)"
+                 placeholder="Enter tags to live search (press Enter after each entry)"
+                 pTooltip="Enter tags to live search (press Enter after each entry)"
                  tooltipPosition="top"
                  (onAdd)="liveSearch(searchTags)"
                  (onRemove)="liveSearch(searchTags)">
@@ -84,9 +97,6 @@
                   icon="pi pi-times-circle"
                   pTooltip="Click to remove all tags" (click)="removeAllSearchTags()"></p-button>
 
-
-              <!--<p-selectButton [options]="searchTypes" [(ngModel)]="searchType"></p-selectButton>-->
-
               <p-toggleButton onLabel="ANY" offLabel="ALL"
                     [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn"
                     pTooltip="Choose whether tags will be searched in ANY or ALL mode"
@@ -98,7 +108,6 @@
                       (click)="displayUniqueItemTagsSidebar=!displayUniqueItemTagsSidebar"></button>
 
             </div>
-
           </div>
           <div class="ui-g-3 text-right">
             <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
@@ -154,14 +163,9 @@
           <label for="liveSearchEnabled">Enable Live Search</label>
         </div>
         <div class="ui-g-3">
-          <p-inputSwitch [(ngModel)]="liveSearchEnabled" id="liveSearchEnabled" (onChange)="liveSearchOrFilter()"></p-inputSwitch>
+          <p-inputSwitch [(ngModel)]="liveSearchEnabled" id="liveSearchEnabled" (onChange)="liveSearchOptionChanged()"></p-inputSwitch>
         </div>
       </div>
     </div>
   </p-sidebar>
-
-
 </div>
-
-
-
