@@ -2,11 +2,11 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {PublicFeedService} from '../../services/public-feed.service';
 import {ConfirmationService, MessageService, SelectItem} from 'primeng/api';
 
-import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 
 import {animate, animateChild, group, keyframes, query, stagger, style, transition, trigger} from '@angular/animations';
 import {MatSnackBar} from '@angular/material';
-import {Observable, Subject, timer} from 'rxjs';
+import {Subject} from 'rxjs';
 
 
 @Component({
@@ -42,17 +42,19 @@ export class PublicFeedComponent implements OnInit {
 
   public loading: boolean = false;
 
-  public feed: any[]; // Processed feed received from service
-  public uniqueItemTags: string[] = []; // Unique feed item tags extracted from feed
-  public uniqueItemTagsSelectItems: SelectItem[] = [];
+  public feedItems: any[]; // Processed feedItems received from service
+  public shownFeedItems: any[];
+  public uniqueItemTags: string[] = []; // Unique feedItems item tags extracted from feedItems
 
+  public uniqueItemTagsSelectItems: SelectItem[] = [];
   public searchTags: string[] = []; //
   public filteredItemTags: string[] = []; // Tag search auto-complete dropdown results
+
   public isORBasedTagSearch: boolean = false;
 
-  public shownFeed: any[];
+  liveSearchTagsSource = new Subject<string[]>();
 
-  liveSearchTags$ = new Subject<string[]>();
+  liveSearchTags$ = this.liveSearchTagsSource.asObservable();
 
   constructor(protected publicFeedService: PublicFeedService,
               private confirmationService: ConfirmationService,
@@ -62,32 +64,47 @@ export class PublicFeedComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.openSnackBar('Loading Flickr Public Feed...', {});
 
-    timer(50).subscribe(() => {
-      this.publicFeedService.getPublicFeed().subscribe(feed => {
+    let feedObserver = {
+      next: feed => {
         this.loading = false;
         this.processFeed(feed);
         // this.messageService.add({key: 'operation-status', severity:'success', summary: 'Success', detail: 'Flickr Public Feed loaded successfully!'});
-        this.openSnackBar('Flickr Public Feed loaded successfully!');
-      }, error => {
+        this.openSnackBar('Flickr Public Feed loaded successfully' + (this.searchTags && this.searchTags.length > 0 ? ' based on tags [' + this.searchTags.join(', ') + ']!' : '!'));
+      },
+      error: error => {
         this.loading = false;
         // this.messageService.add({key: 'operation-status', severity:'error', summary: 'Error', detail: 'Error occurred while loading Flickr Public Feed!'});
         this.openSnackBar('Error occurred while loading Flickr Public Feed!');
-      });
-    })
+      }
+    };
+
+    this.publicFeedService.getPublicFeed(null).subscribe(feedObserver);
+
+    this.liveSearchTags$.pipe(
+      // filter(text => text.length > 2),
+      debounceTime(100),
+      distinctUntilChanged(),
+      switchMap(() => this.publicFeedService.getPublicFeed(this.searchTags, this.isORBasedTagSearch ? 'any' : 'all'))
+    ).subscribe(feedObserver);
 
   }
 
   private processFeed(feed) {
-    this.feed = feed;
-    this.shownFeed = this.feed;
+    this.feedItems = feed.items;
+    this.shownFeedItems = this.feedItems;
 
     let uniqueItemTags: Set<string> = new Set<string>();
 
-    this.feed.forEach(item => {
+    this.feedItems.forEach(item => {
       let itemTags: string[] = item.tags.split(' ');
 
-      itemTags.forEach(itemTag => uniqueItemTags.add(itemTag));
+      itemTags.forEach(itemTag => {
+        if(itemTag && itemTag.trim() != '') {
+          uniqueItemTags.add(itemTag);
+        }
+      });
     });
 
     this.uniqueItemTags = Array.from(uniqueItemTags);
@@ -104,14 +121,15 @@ export class PublicFeedComponent implements OnInit {
     this.filteredItemTags = this.uniqueItemTags.filter(itemTag => itemTag.trim().toLowerCase().indexOf(query) != -1);
   }
 
-  private openSnackBar(message: string) {
-    this.snackBar.open(message, 'OK', {
+  private openSnackBar(message: string, config?: any) {
+    let configuration = config || {
       duration: 3000
-    });
+    };
+    this.snackBar.open(message, 'OK', configuration);
   }
 
-  public filterFeedByTags() {
-    this.shownFeed = this.searchTags.length == 0 ? this.feed : this.feed.filter(item => {
+  public filterFeedItemsByTags() {
+    this.shownFeedItems = this.searchTags.length == 0 ? this.feedItems : this.feedItems.filter(item => {
       let matched: boolean = this.isORBasedTagSearch ? false : true; // Default matched values for ANY and ALL based search
       this.searchTags.forEach(searchTag => {
         let itemTags: string[] = item.tags.split(' ');
@@ -127,24 +145,32 @@ export class PublicFeedComponent implements OnInit {
     });
   }
 
+  public changeTagMode() {
+    this.loadOrFilter();
+  }
+
+  public loadOrFilter() {
+    this.liveSearchEnabled ? this.liveSearch() : this.filterFeedItemsByTags();
+  }
+
   public removeAllSearchTags() {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to remove all Search Tags?',
       accept: () => {
         this.searchTags = [];
-        this.filterFeedByTags();
+        this.loadOrFilter();
       }
     });
   }
 
   public addSearchTag(tag: string) {
     this.searchTags.push(tag);
-    this.filterFeedByTags();
+    this.loadOrFilter();
   }
 
   public removeSearchTag(tag: string) {
     this.searchTags.splice(this.searchTags.indexOf(tag), 1);
-    this.filterFeedByTags();
+    this.loadOrFilter();
   }
 
   public toggleSearchTag(tag: string) {
@@ -157,6 +183,11 @@ export class PublicFeedComponent implements OnInit {
 
   public searchTagsContains(tag: string) {
     return this.searchTags.indexOf(tag) != -1;
+  }
+
+  liveSearch(){
+    this.liveSearchTagsSource.next([...this.searchTags]);
+    this.loading = true;
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -174,14 +205,5 @@ export class PublicFeedComponent implements OnInit {
           break;
       }
     }
-  }
-
-  liveSearch(liveSearchTags: Observable<string[]>): Observable<string[]> {
-    return liveSearchTags.pipe(
-      // filter(text => text.length > 2),
-      debounceTime(100),
-      distinctUntilChanged(),
-      switchMap(() => this.publicFeedService.getPublicFeed())
-    );
   }
 }

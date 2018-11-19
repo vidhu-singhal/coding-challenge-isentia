@@ -1,4 +1,6 @@
 <h5 class="text-center">Isentia Coding Challenge Submission - Vidhu Singhal (vidhu.singhal@gmail.com)</h5>
+<h6 class="text-center">Press <kbd>Alt + S</kbd> (or click Settings icon <i class="pi pi-cog"></i> on top-right) for various demo options</h6>
+
 <div class="ui-g">
   <div class="content-section" [ngClass]="{'blocked': displaySettingsSidebar}">
 
@@ -29,7 +31,7 @@
 
     <p-progressBar mode="indeterminate" *ngIf="loading" [style]="{'height': '6px'}"></p-progressBar>
 
-    <p-dataView [value]="shownFeed" [paginator]="true" [rows]="12" layout="grid" [loading]="loading">
+    <p-dataView [value]="shownFeedItems" [paginator]="true" [rows]="12" layout="grid" [loading]="loading">
 
       <p-header>
         <div class="ui-g">
@@ -39,6 +41,7 @@
               [(ngModel)]="searchTags"
               defaultLabel="Choose tags"
               selectedItemsLabel="{0} tag(s) selected"
+             (onChange)="loadOrFilter()"
               maxSelectedLabels="0"></p-multiSelect>
 
             <!--<p-dropdown [options]="uniqueItemTags" [(ngModel)]="searchTags""></p-dropdown>-->
@@ -47,9 +50,9 @@
             <div class="ui-inputgroup">
               <i class="pi pi-tags"></i>
               <p-autoComplete *ngIf="!liveSearchEnabled" [(ngModel)]="searchTags" [suggestions]="filteredItemTags" (completeMethod)="filterItemTags($event)"
-                              (onSelect)="filterFeedByTags()"
-                              (onUnselect)="filterFeedByTags()"
-                              [minLength]="1" placeholder="Type to get Tags suggestions" [multiple]="true">
+                              (onSelect)="filterFeedItemsByTags()"
+                              (onUnselect)="filterFeedItemsByTags()"
+                              [minLength]="1" placeholder="Type to get tag suggestions (for loaded feed)" [multiple]="true">
                 <ng-template let-searchTag pTemplate="selectedItem">
                   <div class="ui-helper-clearfix">
                     <span class="search-tag">
@@ -61,9 +64,12 @@
 
               <p-chips *ngIf="liveSearchEnabled"  [(ngModel)]="searchTags"
                  [allowDuplicate]="false"
-                 [addOnTab]="true" [addOnBlur]="true"
-                 (onAdd)="filterFeedByTags()"
-                 (onRemove)="filterFeedByTags()">
+                 [addOnTab]="false" [addOnBlur]="false"
+                 placeholder="Tags to live search"
+                 pTooltip="Tags to live search (press Enter after each entry)"
+                 tooltipPosition="top"
+                 (onAdd)="liveSearch()"
+                 (onRemove)="liveSearch()">
 
                 <ng-template let-searchTag pTemplate="selectedItem">
                   <div class="ui-helper-clearfix">
@@ -86,7 +92,7 @@
                     [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn"
                     pTooltip="Choose whether tags will be searched in ANY or ALL mode"
                     tooltipPosition="top"
-                    (onChange)="filterFeedByTags()"></p-toggleButton>
+                    (onChange)="changeTagMode()"></p-toggleButton>
 
               <button *ngIf="uniqueItemTagsSidebarEnabled" pButton type="button" label="Choose Tags"
                       class=" ui-button-info ui-button-raised animated fadeIn"
@@ -111,7 +117,7 @@
             </div>
             <p-footer>
               <div class="text-center">
-                <div class="small feed-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
+                <div class="small feed-item-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
                 <div class="tags" *ngIf="item.tags?.trim() != ''">
                   <span *ngFor="let itemTag of item.tags.split(' ')" (click)="toggleSearchTag(itemTag)">
                     <span class="label label-tag small" *ngIf="itemTag?.trim() != ''"
@@ -137,7 +143,7 @@
             </div>
             <p-footer>
               <div class="text-center">
-                <div class="small feed-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
+                <div class="small feed-item-title" *ngIf="item?.title?.trim() != ''">{{item.title}}</div>
                 <div class="tags" *ngIf="item.tags?.trim() != ''">
                   <span *ngFor="let itemTag of item.tags.split(' ')" (click)="toggleSearchTag(itemTag)">
                     <span class="label label-tag small" *ngIf="itemTag?.trim() != ''"
