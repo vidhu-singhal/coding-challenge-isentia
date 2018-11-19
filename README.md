@@ -4,8 +4,8 @@ This is sample code base for Isentia Code Challenge ()
 
 # Features
 
-  - Auto-completion of tags for loaded feed for filtering feed
-  - Live tag searching
+  - Auto-completion of tags for loaded feed (for filtering feed)
+  - Live tag searching (Option needs to be enabled from Settings Page)
   - Support for Flickr's tagmode (ANY/ALL)
   - Grid / List Layout
   - Pagination
@@ -14,7 +14,7 @@ This is sample code base for Isentia Code Challenge ()
 
 # Development / Running Locally
 
-Open your favorite Terminal and run these commands.
+Install latest version of node.js for your platform and run following commands from your favorite Terminal.
 
 First Tab (Run Backend Server):
 ```sh
@@ -43,3 +43,7 @@ $ ng build --prod
  - Fix Parameter Encoding (Right now Chinese character based tags won't work)
  - jsonFlickrFeed from Flickr removed in a hacky way need to improvise on that
  - Visit component to set correct visibility to method (public/protected/default/private)
+ - There is scope for optimizations and code refactoring
+ - Common array/string operation can be done using lodash
+ - PublicFeedComponent and Service can be refactored out in a feature module and lazily loaded using loadChildren - currently not done being the only module
+ - There is scope for better error handling
