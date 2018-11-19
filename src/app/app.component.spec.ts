@@ -27,6 +27,7 @@ import {SidebarModule} from '../../node_modules/primeng/sidebar';
 import {InputSwitchModule} from '../../node_modules/primeng/inputswitch';
 import {ChipsModule} from '../../node_modules/primeng/chips';
 import {CardModule} from '../../node_modules/primeng/card';
+import {KeyFilterModule} from '../../node_modules/primeng/keyfilter';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -70,7 +71,8 @@ describe('AppComponent', () => {
         SidebarModule,
         InputSwitchModule,
         ChipsModule,
-        CardModule
+        CardModule,
+        KeyFilterModule
       ],
       providers: [
         ConfirmationService

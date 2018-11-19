@@ -80,6 +80,7 @@
                  placeholder="Enter tags to live search (press Enter after each entry)"
                  pTooltip="Enter tags to live search (press Enter after each entry)"
                  tooltipPosition="top"
+                 [pKeyFilter]="blockSpaceRegExp"
                  (onAdd)="liveSearch(searchTags)"
                  (onRemove)="liveSearch(searchTags)">
 
@@ -99,7 +100,7 @@
 
               <p-toggleButton onLabel="Any" offLabel="All"
                     [(ngModel)]="isORBasedTagSearch" styleClass="alwaysOn"
-                    pTooltip="Click to match {{isORBasedTagSearch ? 'any tag' : 'all tags'}}"
+                    pTooltip="Click to match {{isORBasedTagSearch ? 'all tags' : 'any tag'}}"
                     tooltipPosition="top"
                     (onChange)="changeTagMode()"></p-toggleButton>
 

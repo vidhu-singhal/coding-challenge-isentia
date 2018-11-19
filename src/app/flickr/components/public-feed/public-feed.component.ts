@@ -34,6 +34,8 @@ import {UtilService} from '../../../util/services/util.service';
 
 })
 export class PublicFeedComponent implements OnInit {
+  blockSpaceRegExp: RegExp = /[^\s]/;
+
   displaySettingsSidebar = false; // Boolean to govern visibility of Settings Sidebar
   uniqueItemTagsSidebarEnabled = false; // Boolean to govern whether Unique Item Tags Sidebar is enabled
   displayUniqueItemTagsSidebar = false; // Boolean to govern visibility of Unique Item Tags Sidebar

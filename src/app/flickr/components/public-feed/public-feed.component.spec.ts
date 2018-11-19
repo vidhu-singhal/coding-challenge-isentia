@@ -27,6 +27,7 @@ import {InputSwitchModule} from '../../../../../node_modules/primeng/inputswitch
 import {ChipsModule} from '../../../../../node_modules/primeng/chips';
 import {CardModule} from '../../../../../node_modules/primeng/card';
 import {ConfirmationService} from '../../../../../node_modules/primeng/api';
+import {KeyFilterModule} from '../../../../../node_modules/primeng/keyfilter';
 
 describe('PublicFeedComponent', () => {
   let component: PublicFeedComponent;
@@ -72,7 +73,8 @@ describe('PublicFeedComponent', () => {
         SidebarModule,
         InputSwitchModule,
         ChipsModule,
-        CardModule
+        CardModule,
+        KeyFilterModule
       ],
       providers: [
         ConfirmationService,

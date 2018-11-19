@@ -26,6 +26,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {ChipsModule} from 'primeng/chips';
 import {CardModule} from 'primeng/card';
+import {KeyFilterModule} from 'primeng/keyfilter';
 
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
@@ -75,6 +76,7 @@ import {FeedItemComponent} from './flickr/components/feed-item/feed-item.compone
     InputSwitchModule,
     ChipsModule,
     CardModule,
+    KeyFilterModule,
 
     // Service Worker for potential caching of resources
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
