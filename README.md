@@ -25,7 +25,7 @@ Install latest version of node.js for your platform and run following commands f
 
 First Tab (Run Backend Server):
 ```sh
-$ cd server
+$ cd server/node
 $ npm install
 $ node app.js
 ```
