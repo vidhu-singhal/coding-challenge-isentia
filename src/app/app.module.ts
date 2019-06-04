@@ -27,6 +27,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
 import {ChipsModule} from 'primeng/chips';
 import {CardModule} from 'primeng/card';
 import {KeyFilterModule} from 'primeng/keyfilter';
+import {DragDropModule} from 'primeng/dragdrop';
 
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
@@ -34,12 +35,15 @@ import {environment} from '../environments/environment';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatChipsModule, MatFormFieldModule, MatIconModule} from '@angular/material';
 import {FeedItemComponent} from './flickr/components/feed-item/feed-item.component';
+import {CarouselModule} from 'primeng/primeng';
+import { CoffeeBuddyComponent } from './coffee-buddy-component/coffee-buddy.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PublicFeedComponent,
-    FeedItemComponent
+    FeedItemComponent,
+    CoffeeBuddyComponent
   ],
   imports: [
     // Angular Modules
@@ -77,6 +81,8 @@ import {FeedItemComponent} from './flickr/components/feed-item/feed-item.compone
     ChipsModule,
     CardModule,
     KeyFilterModule,
+    CarouselModule,
+    DragDropModule,
 
     // Service Worker for potential caching of resources
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

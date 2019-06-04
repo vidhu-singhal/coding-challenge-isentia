@@ -1,0 +1,24 @@
+<img src="assets/totoro-coffee-2.png" width="150" height="150"/>
+<img src="assets/totoro-coffee-3.png"/>
+<img src="assets/coffee-loader.svg" width="100" height="100"/>
+<img src="assets/coffee-buddy.png" width="200" height="200"/>
+
+
+<div class="ui-g">
+  <div class="content-section">
+    <p-carousel [value]="items" easing="cubic-bezier(.17,.67,.58,.02)" circular="circular" [numVisible]="3">
+      <ng-template let-item pTemplate="item">
+        <p-card>
+          <div pDraggable="ddCoffeBuddy" dragEffect="move">
+            <img src="https://www.centraltest.com/sites/all/files/styles/image_title/public/ct-images/logos-products/bf5.png?itok=wVKIrjPy"/>
+          </div>
+        </p-card>
+      </ng-template>
+    </p-carousel>
+
+    <div pDroppable="ddCoffeBuddy" style="height: 400px; width: 400px; margin: 0 auto; border: dashed gray 1px; text-align: center">
+      <code>Drop me here</code>
+    </div>
+
+  </div>
+</div>
