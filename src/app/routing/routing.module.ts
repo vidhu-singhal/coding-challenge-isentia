@@ -4,8 +4,8 @@ import {PublicFeedComponent} from '../flickr/components/public-feed/public-feed.
 import {CoffeeBuddyComponent} from '../coffee-buddy-component/coffee-buddy.component';
 
 const routes: Routes = [
-  { path: '/flickr', component: PublicFeedComponent, canActivate: [], canDeactivate: [], data: { page: 'flickr-public-feedItems'}},
-  { path: '/coffee-buddy', component: CoffeeBuddyComponent, canActivate: [], canDeactivate: [], data: { page: 'coffee-buddy'}},
+  { path: 'flickr', component: PublicFeedComponent, canActivate: [], canDeactivate: [], data: { page: 'flickr-public-feedItems'}},
+  { path: 'coffee-buddy', component: CoffeeBuddyComponent, canActivate: [], canDeactivate: [], data: { page: 'coffee-buddy'}},
 ];
 
 @NgModule({
