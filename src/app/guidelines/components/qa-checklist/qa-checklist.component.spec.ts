@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoffeeBuddyComponent } from './coffee-buddy.component';
+import { QaChecklistComponent } from './qa-checklist.component';
 
-describe('CoffeeBuddyComponent', () => {
-  let component: CoffeeBuddyComponent;
-  let fixture: ComponentFixture<CoffeeBuddyComponent>;
+describe('QaChecklistComponent', () => {
+  let component: QaChecklistComponent;
+  let fixture: ComponentFixture<QaChecklistComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoffeeBuddyComponent ]
+      declarations: [ QaChecklistComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CoffeeBuddyComponent);
+    fixture = TestBed.createComponent(QaChecklistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

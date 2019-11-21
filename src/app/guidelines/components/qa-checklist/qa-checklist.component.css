@@ -1,0 +1,41 @@
+h4 {
+  text-align: center;
+  margin: 0 0 8px 0;
+}
+::ng-deep.ui-inputtext {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 12px;
+}
+
+::ng-deep.ui-tree {
+  margin: auto;
+  width: 98vw;
+}
+
+::ng-deep.ui-steps .ui-steps-item {
+  width: 25%;
+}
+
+::ng-deep.ui-steps.steps-custom {
+  margin-bottom: 30px;
+}
+
+::ng-deep.ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
+  height: 10px;
+  padding: 0 1em;
+}
+
+::ng-deep.ui-steps.steps-custom .ui-steps-item .ui-steps-number {
+  background-color: #0081c2;
+  color: #FFFFFF;
+  display: inline-block;
+  width: 36px;
+  border-radius: 50%;
+  margin-top: -14px;
+  margin-bottom: 10px;
+}
+
+::ng-deep.ui-steps.steps-custom .ui-steps-item .ui-steps-title {
+  color: #555555;
+}

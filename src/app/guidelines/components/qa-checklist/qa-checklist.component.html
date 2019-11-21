@@ -1,0 +1,44 @@
+<!--<div class="content-section introduction">-->
+<!--  <div>-->
+<!--    <span class="feature-title">QA Guidelines</span>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="content-section implementation">
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
+  <div style="text-align: center; margin: auto">
+    <h3>Guidelines</h3>
+  </div>
+
+  <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+
+  <div style="padding: 4px; text-align: center; margin: auto">
+    <p-selectButton [options]="tags" [(ngModel)]="selectedTags"></p-selectButton>
+  </div>
+
+  <p-tree [value]="nodes" [filter]="true" filterMode="strict" selectionMode="checkbox" [(selection)]="selectedNodes"
+          (onNodeSelect)="onNodeSelected($event)" (onNodeUnselect)="onNodeUnselected($event)">
+    <ng-template let-node  pTemplate="default">
+      <div [@bubbleAnimation]="node.selected">
+        <span [innerHTML]="getSafeValue(node.label)"></span>
+        <span *ngFor="let tag of node.tags" class="label label-info">{{tag}}</span>
+
+        <span *ngIf="node.extraInfo">
+          <i class="pi pi-question-circle" (mouseover)="onSelectNode($event, node, opExtraInfo)"></i>
+        </span>
+
+        <span *ngIf="node.selected">
+          <i class="pi pi-comment" style="cursor: pointer" (click)="onEdit($event, node, opEditor)"></i>
+        </span>
+      </div>
+    </ng-template>
+  </p-tree>
+</div>
+
+<p-overlayPanel #opExtraInfo>
+  <span *ngIf="selectedNode" [innerHTML]="getSafeValue(selectedNode.extraInfo)"></span>
+</p-overlayPanel>
+
+<p-overlayPanel #opEditor [dismissable]="true" appendTo="body" [showCloseIcon]="true">
+  <p-editor *ngIf="selectedNodeForComments" [(ngModel)]="selectedNodeForComments.text" [style]="{'height':'320px'}"></p-editor>
+</p-overlayPanel>

@@ -3,8 +3,6 @@ import {AppComponent} from './app.component';
 import {ConfirmDialogModule} from 'primeng/primeng';
 import {ConfirmationService} from '../../node_modules/primeng/api';
 import {RoutingModule} from './routing/routing.module';
-import {PublicFeedComponent} from './flickr/components/public-feed/public-feed.component';
-import {FeedItemComponent} from './flickr/components/feed-item/feed-item.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '../../node_modules/@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -34,8 +32,6 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        PublicFeedComponent,
-        FeedItemComponent
       ],
       imports: [
         // Angular Modules
