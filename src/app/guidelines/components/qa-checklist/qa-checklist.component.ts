@@ -29,12 +29,13 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class QaChecklistComponent implements OnInit {
 
-  @ViewChild('expandingTree')
+  @ViewChild('expandingTree', { static: false })
   expandingTree: Tree;
 
   nodes: TreeNode[];
 
   selectedNodes: TreeNode[];
+  table: TreeNode[];
 
   selectedNode: TreeNode;
 
@@ -46,72 +47,74 @@ export class QaChecklistComponent implements OnInit {
 
   steps: MenuItem[];
 
-  activeIndex = 1;
+  activeIndex = 0;
+
+  displayResults = false;
 
   constructor(private nodeService: NodeService, private messageService: MessageService, private domSanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.nodeService.getFiles().then(files => this.nodes = files);
+    this.nodeService.getGuidelineNodes().then(nodes => this.nodes = nodes);
 
-    this.tags = [];
-    this.tags.push({label: 'All', value: 'All'});
-    this.tags.push({label: 'Frontend', value: 'Frontend'});
-    this.tags.push({label: 'Jira Frontend', value: 'Jira Frontend'});
-    this.tags.push({label: 'Backend', value: 'Backend'});
+    this.tags = [
+      {label: 'All', value: 'All'},
+      {label: 'Frontend', value: 'Frontend'},
+      {label: 'Jira Frontend', value: 'Jira Frontend'},
+      {label: 'Backend', value: 'Backend'}
+    ];
 
-
-
-    this.steps = [{
-      label: 'Planning',
-      command: (event: any) => {
-        this.activeIndex = 0;
-        this.messageService.add({severity: 'info', summary: 'Planning', detail: event.item.label});
-      }
-    },
+    this.steps = [
+      {
+        label: 'Planning',
+        command: (event: any) => {
+          this.activeIndex = 0;
+          // this.messageService.add({severity: 'info', summary: 'Planning', detail: event.item.label});
+        }
+      },
       {
         label: 'Development',
         command: (event: any) => {
           this.activeIndex = 1;
-          this.messageService.add({severity: 'info', summary: 'Development', detail: event.item.label});
+          // this.messageService.add({severity: 'info', summary: 'Development', detail: event.item.label});
         }
       },
       {
         label: 'QA',
         command: (event: any) => {
           this.activeIndex = 2;
-          this.messageService.add({severity: 'info', summary: 'QA', detail: event.item.label});
+          // this.messageService.add({severity: 'info', summary: 'QA', detail: event.item.label});
         }
       },
       {
         label: 'Rollout',
         command: (event: any) => {
           this.activeIndex = 3;
-          this.messageService.add({severity: 'info', summary: 'Rollout', detail: event.item.label});
+          // this.messageService.add({severity: 'info', summary: 'Rollout', detail: event.item.label});
         }
       }
     ];
   }
 
-  // expandAll() {
-  //   this.nodes.forEach( node => {
-  //     this.expandRecursive(node, true);
-  //   } );
-  // }
-  //
-  // collapseAll() {
-  //   this.nodes.forEach( node => {
-  //     this.expandRecursive(node, false);
-  //   } );
-  // }
+  expandAll(nodes: TreeNode[]) {
+    nodes.forEach( node => {
+      this.expandRecursive(node, true);
+    } );
+  }
 
-  // private expandRecursive(node: TreeNode, isExpand: boolean) {
-  //   node.expanded = isExpand;
-  //   if (node.children) {
-  //     node.children.forEach( childNode => {
-  //       this.expandRecursive(childNode, isExpand);
-  //     } );
-  //   }
-  // }
+  collapseAll(nodes: TreeNode[]) {
+    nodes.forEach( node => {
+      this.expandRecursive(node, false);
+    } );
+  }
+
+  private expandRecursive(node: TreeNode, isExpand: boolean) {
+    node.expanded = isExpand;
+    if (node.children) {
+      node.children.forEach( childNode => {
+        this.expandRecursive(childNode, isExpand);
+      } );
+    }
+  }
 
   onSelectNode(event, node, overlayPanel) {
     this.selectedNode = node;
@@ -119,21 +122,43 @@ export class QaChecklistComponent implements OnInit {
   }
 
   onEdit(event, node, overlayPanel) {
+    event.preventDefault();
+    event.stopPropagation();
     this.selectedNodeForComments = node;
     overlayPanel.toggle(event);
   }
 
   onNodeSelected(event) {
-    this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.label});
+    // this.messageService.add({severity: 'info', summary: 'Node Selected', detail: event.node.label});
     event.node.selected = true;
   }
 
   onNodeUnselected(event) {
-    this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
+    // this.messageService.add({severity: 'info', summary: 'Node Unselected', detail: event.node.label});
     event.node.selected = false;
   }
 
   getSafeValue(value) {
     return this.domSanitizer.bypassSecurityTrustHtml(value);
   }
+
+  prepareSummary() {
+    this.table = [];
+
+    this.nodes.forEach(node => {
+      if (node['selected'] === true) {
+        this.table.push({
+          data: node
+        });
+      }
+    });
+
+    this.expandAll(this.table);
+
+    this.displayResults = true;
+  }
+
+  // onStepChange(index) {
+  //
+  // }
 }

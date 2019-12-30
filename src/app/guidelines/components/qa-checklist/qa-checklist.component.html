@@ -10,18 +10,20 @@
     <h3>Guidelines</h3>
   </div>
 
-  <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+  <p-steps [model]="steps" [(activeIndex)]="activeIndex" [readonly]="false" (activeIndexChange)="onStepChange($event)"></p-steps>
 
   <div style="padding: 4px; text-align: center; margin: auto">
     <p-selectButton [options]="tags" [(ngModel)]="selectedTags"></p-selectButton>
   </div>
 
   <p-tree [value]="nodes" [filter]="true" filterMode="strict" selectionMode="checkbox" [(selection)]="selectedNodes"
-          (onNodeSelect)="onNodeSelected($event)" (onNodeUnselect)="onNodeUnselected($event)">
+          (onNodeSelect)="onNodeSelected($event)" (onNodeUnselect)="onNodeUnselected($event)"
+    filterPlaceholder="Search guidelines...">
     <ng-template let-node  pTemplate="default">
-      <div [@bubbleAnimation]="node.selected">
+<!--      [@bubbleAnimation]="node.selected"-->
+      <div>
         <span [innerHTML]="getSafeValue(node.label)"></span>
-        <span *ngFor="let tag of node.tags" class="label label-info">{{tag}}</span>
+        <span *ngFor="let tag of node.tags" class="label label-info label-{{tag}}">{{tag}}</span>
 
         <span *ngIf="node.extraInfo">
           <i class="pi pi-question-circle" (mouseover)="onSelectNode($event, node, opExtraInfo)"></i>
@@ -33,7 +35,46 @@
       </div>
     </ng-template>
   </p-tree>
+  <div style="text-align: right">
+    <p-button label="View Selected" icon="pi pi-eye" iconPos="left" (click)="prepareSummary()"></p-button>
+  </div>
 </div>
+
+<p-sidebar [(visible)]="displayResults" [closeOnEscape]="true" [dismissible]="true" styleClass="ui-sidebar-lg" position="bottom">
+  <div style="margin-top: 20px">
+    <p-treeTable [value]="table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Guideline</th>
+          <th>Comment</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr>
+          <td>
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            <span [innerHTML]="getSafeValue(rowData.label)"></span>
+          </td>
+          <td>
+            <p-editor [(ngModel)]="rowData.text" [style]="{'height':'120px'}">
+              <p-header>
+              <span>
+              </span>
+              </p-header>
+            </p-editor>
+          </td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+    <div style="text-align: center; margin: auto; padding: 4px">
+      <p-button label="Copy in a digestible format" icon="pi pi-copy" iconPos="left"></p-button>
+    </div>
+    <div style="text-align: center; margin: auto; padding: 4px">
+      <p-button label="Create Confluence Page" icon="pi pi-cloud-upload" iconPos="left"></p-button>
+    </div>
+  </div>
+</p-sidebar>
+
 
 <p-overlayPanel #opExtraInfo>
   <span *ngIf="selectedNode" [innerHTML]="getSafeValue(selectedNode.extraInfo)"></span>

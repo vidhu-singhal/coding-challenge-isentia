@@ -5,16 +5,19 @@
       "collapsedIcon": "fa fa-folder",
       "label": "<b>New</b> functionality",
       "data": "newFeature",
+      "tags": ["Planning", "Development"],
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "How will users <b>discover</b> new functionality? <i/>",
-          "data": "featureDiscovery"
+          "key": "featureDiscovery",
+          "tags": ["FE", "BE"]
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What <b>analytics</b> should be collected to validate success? <i/>",
-          "data": "analytics"
+          "key": "analytics",
+          "tags": ["FE", "BE"]
         }
       ]
     },
@@ -22,32 +25,33 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "Removal or modification of <b>existing</b> functionality",
-      "data": "existingFeature",
+      "key": "existingFeature",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "How will users <b>find out</b> about the change? <i/>",
-          "data": "featureDiscoveryForModified"
+          "key": "featureDiscoveryForModified",
+          "tags": ["FE", "BE"]
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "How do you know you <b>didn't make it worse</b>? <i/>",
-          "data": "existingFeatureHaveNotMadeItWorse"
+          "key": "existingFeatureHaveNotMadeItWorse"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It has <b>upgrade task<b>",
-          "data": "upgradeTask"
+          "key": "upgradeTask"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It includes some <b>refactoring</b>...",
-          "data": "itRefactors"
+          "key": "itRefactors"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is it backward <b>compatible</b>? <i/>",
-          "data": "compatibility"
+          "key": "compatibility"
         }
       ]
     },
@@ -55,17 +59,19 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "<b>Harvested</b> feature",
-      "data": "harvestedFeature",
+      "key": "harvestedFeature",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "Cloud to Server",
-          "data": "cloudToServer"
+          "key": "cloudToServer",
+          "tags": ["BE"]
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Server to Cloud",
-          "data": "serverToCloud"
+          "key": "serverToCloud",
+          "tags": ["BE"]
         }
       ]
     },
@@ -73,47 +79,48 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "Common risks",
-      "data": "commonRisks",
+      "key": "commonRisks",
+      "tags": ["Planning", "Development"],
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "Can it be <b>turned off</b> when it misbehaves? <i/>",
-          "data": "canItBeTurnedOff"
+          "key": "canItBeTurnedOff"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "When this feature fails <b>what else will fail</b>? <i/>",
-          "data": "whatElseWillFail"
+          "key": "whatElseWillFail"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What's your <b>tested recovery</b> plan? <i/>",
-          "data": "testedRecoveryPlan"
+          "key": "testedRecoveryPlan"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it have good <b>usability</b>? <i/>",
-          "data": "usability"
+          "key": "usability"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Works well in different <b>languages/locales</b>? <i/>",
-          "data": "localisation"
+          "key": "localisation"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Would it be affected by product <b>license</b>? <i/>",
-          "data": "license"
+          "key": "license"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it affect <b>add-on developers</b>? <i/>",
-          "data": "extensibility"
+          "key": "extensibility"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Should <b>documentation</b> be updated? <i/>",
-          "data": "documentation"
+          "key": "documentation"
         }
       ]
     },
@@ -121,107 +128,108 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It has data <b>input</b> <i/>",
-      "data": "itHasInput",
+      "key": "itHasInput",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "How will users know what's <b>mandatory</b>? <i/>",
-          "data": "mandatoryInput"
+          "key": "mandatoryInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it handle <b>empty</b> input?",
-          "data": "emptyInput"
+          "key": "emptyInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it handle <b>large</b> input? Is there a limit? <i/>",
-          "data": "largeInput"
+          "key": "largeInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it handle <b>invalid</b> input? <i/>",
-          "data": "inputValidation"
+          "key": "inputValidation"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is it forgiving of user input <b>mistakes?</b> <i/>",
-          "data": "forgivingInput"
+          "key": "forgivingInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is it protected from <b>malicious</b> input? <i/>",
-          "data": "maliciousInput"
+          "key": "maliciousInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Who has <b>permission</b> for input? Can anonymous do that?",
-          "data": "inputPermissions"
+          "key": "inputPermissions"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it <b>failed</b> to process input? <i/>",
-          "data": "failedOnInput"
+          "key": "failedOnInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Input via UI",
-          "data": "inputViaUi"
+          "key": "inputViaUi"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Consider input from other features and via API/REST",
-          "data": "inputViaAPI"
+          "key": "inputViaAPI"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it use and check <b>CSRF</b> tokens?<i/>",
-          "data": "requestForgery"
+          "key": "requestForgery"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it <b>escape</b> all output by default?<i/>",
-          "data": "xssPrevention"
+          "key": "xssPrevention"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it use dangerous <b>(de)serialization</b> methods?<i/>",
-          "data": "serialization"
+          "key": "serialization"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it use DBO <b>prepared statements</b>?<i/>",
-          "data": "sqli"
+          "key": "sqli"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It can <b>send the requests</b> to any URL or any server specified user input",
-          "data": "itSendRequest"
+          "key": "itSendRequest"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it execute <b>shell commands</b>?<i/>",
-          "data": "commandInjection"
+          "key": "commandInjection",
+          "extraInfo": "<span>Execution of shell command can be dangerous if user input is used as one of command argument</span> <p><a href=\"https://jira.atlassian.com/browse/BAM-13220\">Example</a>"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It reads <b>a file or a file name</b> from user input",
-          "data": "itReadFile"
+          "key": "itReadFile"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What input does it not consider to be <b>trusted</b>?",
-          "data": "nonTrustedInput"
+          "key": "nonTrustedInput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it <b>evaluate code</b> from user input? For example: eval(), assert and (), etc.",
-          "data": "codeEval"
+          "key": "codeEval"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it allow input via <b>URL or HTTP parameters?</b><i/>",
-          "data": "inputViaURL"
+          "key": "inputViaURL"
         }
       ]
     },
@@ -229,77 +237,77 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It has data <b>output</b>",
-      "data": "itHasOutput",
+      "key": "itHasOutput",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "What if <b>no data</b> to return/display? <i/>",
-          "data": "noOutput"
+          "key": "noOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if data is <b>incomplete</b>? <i/>",
-          "data": "incompleteOutput"
+          "key": "incompleteOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if there is <b>a lot of data</b> to return/display? <i/>",
-          "data": "hugeOutput"
+          "key": "hugeOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Possible to <b>sort/filter/limit</b> output? <i/>",
-          "data": "sortFilterLimitOutput"
+          "key": "sortFilterLimitOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it <b>failed</b> to return/display data? <i/>",
-          "data": "failedToOutput"
+          "key": "failedToOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it <b>takes time</b> to return/display result? <i/>",
-          "data": "takesLongToOutput"
+          "key": "takesLongToOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Should it be <b>cached</b>?",
-          "data": "cachedOutput"
+          "key": "cachedOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Can result be <b>stale or invalid</b>? <i/>",
-          "data": "staleOutput"
+          "key": "staleOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Who can <b>access</b> data? Can anonymous see it?",
-          "data": "outputAccessRights"
+          "key": "outputAccessRights"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Leaking <b>sensitive</b> data? <i/>",
-          "data": "leakingSensitieveData"
+          "key": "leakingSensitieveData"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if there's <b>malicious</b> output? <i/>",
-          "data": "maliciousOutput"
+          "key": "maliciousOutput"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it handle exceptions and stacktrace in a <b>secure</b> way?<i/>",
-          "data": "errorHandling"
+          "key": "errorHandling"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it disclose <b>internal</b> or user information?<i/>",
-          "data": "informationDisclouse"
+          "key": "informationDisclouse"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It sets the \"Access-Control-Allow-Origin\" header",
-          "data": "ItUseCors"
+          "key": "ItUseCors"
         }
       ]
     },
@@ -307,57 +315,57 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It does <b>processing</b>",
-      "data": "itDoesProcessing",
+      "key": "itDoesProcessing",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it <b>takes time</b> to process? <i/>",
-          "data": "tooLongToProcess"
+          "key": "tooLongToProcess"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it was <b>interrupted</b>? <i/>",
-          "data": "whatIfProcessingInterrupted"
+          "key": "whatIfProcessingInterrupted"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it <b>failed</b>? <i/>",
-          "data": "whatIfProcessingFailed"
+          "key": "whatIfProcessingFailed"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is it <b>idempotent</b>? <i/>",
-          "data": "processIdempotency"
+          "key": "processIdempotency"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Can it be <b>too much</b> to process? <i/>",
-          "data": "tooMuchProcessing"
+          "key": "tooMuchProcessing"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it handle <b>concurrency</b>? <i/>",
-          "data": "concurrentProcessing"
+          "key": "concurrentProcessing"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it handle exhausted <b>system resources</b> (cpu, network, memory, disk space)? <i/>",
-          "data": "lackOfResources"
+          "key": "lackOfResources"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Can user <b>configure</b> how processing done? <i/>",
-          "data": "processingConfiguration"
+          "key": "processingConfiguration"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Who has <b>permissions</b> to trigger it? Can anonymous do it?",
-          "data": "processingPermissions"
+          "key": "processingPermissions"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It processes <b>XML</b>",
-          "data": "itProcessXml"
+          "key": "itProcessXml"
         }
       ]
     },
@@ -365,37 +373,37 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It <b>stores</b> data",
-      "data": "itStoresData",
+      "key": "itStoresData",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "What if it <b>failed</b> to store? <i/>",
-          "data": "storageFailed"
+          "key": "storageFailed"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it work equally well on <b>different platforms</b>? <i/>",
-          "data": "storagePlatform"
+          "key": "storagePlatform"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Should that data be <b>backupable/exportable</b>? <i/>",
-          "data": "storageBackup"
+          "key": "storageBackup"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Should that data be <b>versioned</b>? <i/>",
-          "data": "storageVersioning"
+          "key": "storageVersioning"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is data stored in a <b>secure</b> way? <i/>",
-          "data": "storageSecurity"
+          "key": "storageSecurity"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is data <b>synced</b> between multiple places? <i/>",
-          "data": "storageSyncing"
+          "key": "storageSyncing"
         }
       ]
     },
@@ -403,32 +411,32 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It <b>notifies</b> someone",
-      "data": "itNotifiesSomeone",
+      "key": "itNotifiesSomeone",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "What if notification channel is <b>not configured</b>? <i/>",
-          "data": "notificationNotConfigured"
+          "key": "notificationNotConfigured"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if notification <b>failed</b>?",
-          "data": "notificationFailed"
+          "key": "notificationFailed"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it respect <b>permissions</b> and notification preferences? <i/>",
-          "data": "notificationPermissions"
+          "key": "notificationPermissions"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Notification via <b>email</b>",
-          "data": "notifyViaEmail"
+          "key": "notifyViaEmail"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Notification via <b>HipChat</b>",
-          "data": "notifyViaHC"
+          "key": "notifyViaHC"
         }
       ]
     },
@@ -436,32 +444,32 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It has <b>dependency</b> on another system",
-      "data": "itIntegratesWithAnotherSystem",
+      "key": "itIntegratesWithAnotherSystem",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "What if dependency is <b>unavailable</b>, <b>misconfigured</b>, or of <b>wrong version</b>?",
-          "data": "unavailableDependency"
+          "key": "unavailableDependency"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What if dependency is <b>slow</b> to respond? <i/>",
-          "data": "slowDependency"
+          "key": "slowDependency"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Integration via <b>Applinks</b>",
-          "data": "runsOnApplinks"
+          "key": "runsOnApplinks"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it make <b>too many requests</b> to another system? <i/>",
-          "data": "rateLimiting"
+          "key": "rateLimiting"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it send <b>customer data</b> to third-party vendors?<i/>",
-          "data": "third-partyVendor"
+          "key": "third-partyVendor"
         }
       ]
     },
@@ -469,42 +477,43 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It uses <b>Dark Feature</b>",
-      "data": "darkFeatureRisks",
+      "key": "darkFeatureRisks",
+      "tags": ["Rollout", "Development"],
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "What is available when the Dark Feature is <b>enabled/disabled</b>?",
-          "data": "dfEnableDisable"
+          "key": "dfEnableDisable"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does the dark feature <b>modify any state</b> in the database or filesystem irrespective of being darkened / lightened? <i/>",
-          "data": "dfModifyState"
+          "key": "dfModifyState"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does the dark feature toggle <b>all</b> of the related code paths like event hooks, service restart handlers, upgrade/downgrade tasks etc.?",
-          "data": "dfCodePath"
+          "key": "dfCodePath"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What happen when the Dark Feature is <b>disabled</b> after being enabled for several days?",
-          "data": "dfDisabledAfterDays"
+          "key": "dfDisabledAfterDays"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What happen when the Dark Feature is <b>enabled</b> after being disabled for several days?",
-          "data": "dfEnabledAfterDays"
+          "key": "dfEnabledAfterDays"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is the Dark Feature enabled for just <b>a group</b> of users?",
-          "data": "dfGroupOfUsers"
+          "key": "dfGroupOfUsers"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What happens when the feature flag is <b>always turned on by default</b>, upgrade task/new instances etc.?",
-          "data": "dfEnableFlagDefault"
+          "key": "dfEnableFlagDefault"
         }
       ]
     },
@@ -512,37 +521,37 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It <b>runs</b>...",
-      "data": "itRuns",
+      "key": "itRuns",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "In a <b>Microservice</b>",
-          "data": "microservice"
+          "key": "microservice"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "In the <b>browser</b>",
-          "data": "runsInBrowser"
+          "key": "runsInBrowser"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "On the <b>backend</b>",
-          "data": "runsOnBackend"
+          "key": "runsOnBackend"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "On <b>mobile</b>",
-          "data": "runsOnMobile"
+          "key": "runsOnMobile"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "In the <b>native client</b>",
-          "data": "runsInNativeClient"
+          "key": "runsInNativeClient"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Will it work in a <b>low spec</b> environment?",
-          "data": "runsInLowSpec"
+          "key": "runsInLowSpec"
         }
       ]
     },
@@ -550,22 +559,22 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "It requires <b>external libraries</b>...",
-      "data": "itDepends",
+      "key": "itDepends",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "Are the new library versions <b>compatible</b>?",
-          "data": "libVersions"
+          "key": "libVersions"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Is the library <b>already used for other purposes</b> in the product?<i/>",
-          "data": "libAlreadyUsed"
+          "key": "libAlreadyUsed"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Do the new libraries contain <b>known vulnerabilities</b>?<i/>",
-          "data": "libVuln"
+          "key": "libVuln"
         }
       ]
     },
@@ -573,42 +582,42 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "<b>Product</b> specific risks",
-      "data": "productSpecificRisks",
+      "key": "productSpecificRisks",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>HipChat</b>",
-          "data": "hipchat"
+          "key": "hipchat"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>Confluence</b>",
-          "data": "confluence"
+          "key": "confluence"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>Bitbucket Cloud</b>",
-          "data": "bitbucket"
+          "key": "bitbucket"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>Bitbucket Server</b>",
-          "data": "bbs"
+          "key": "bbs"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>Bamboo</b>",
-          "data": "bamboo"
+          "key": "bamboo"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>Connect</b>",
-          "data": "connect"
+          "key": "connect"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>JIRA Software</b>",
-          "data": "jsw"
+          "key": "jsw"
         }
       ]
     },
@@ -616,22 +625,22 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "<b>Infrastructure</b> specific risks",
-      "data": "infrastructureSpecificRisks",
+      "key": "infrastructureSpecificRisks",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>AWS</b>",
-          "data": "AWS"
+          "key": "AWS"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "<b>MS Azure</b>",
-          "data": "Azure"
+          "key": "Azure"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Internet Protocol",
-          "data": "IP"
+          "key": "IP"
         }
       ]
     },
@@ -639,57 +648,57 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "<b>Security</b> risks",
-      "data": "securityRisk",
+      "key": "securityRisk",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it carry out operations which may cause <b>exhaustion</b> of disk space, memory or network connectivity?<i/>",
-          "data": "dos"
+          "key": "dos"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it follow the <b>Privacy Policy</b><i/>",
-          "data": "privacyPolicy"
+          "key": "privacyPolicy"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "What are <b>abuse cases</b> by a malicious user?",
-          "data": "abuse"
+          "key": "abuse"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it perform <b>application logging</b> according to the standard?<i/>",
-          "data": "logging"
+          "key": "logging"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it set <b>security headers</b>?<i/>",
-          "data": "securityHeader"
+          "key": "securityHeader"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it <b>allow enumeration</b> of user information?<i/>",
-          "data": "enumeration"
+          "key": "enumeration"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It uses <b>keys and/or secrets</b>",
-          "data": "itHasSecret"
+          "key": "itHasSecret"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it <b>rate limit</b> user requests (such as login attempts)?<i/>",
-          "data": "throttle"
+          "key": "throttle"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Can it <b>redirect</b> to an arbitrary URL?<i/>",
-          "data": "openRedirect"
+          "key": "openRedirect"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "It uses <b>encryption</b>",
-          "data": "itEncrypt"
+          "key": "itEncrypt"
         }
       ]
     },
@@ -697,17 +706,17 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "<b>Privacy</b> considerations",
-      "data": "privacy",
+      "key": "privacy",
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it store, collect or display any <b>Personally Identifiable Information (PII)</b>?<i/>",
-          "data": "storesPII"
+          "key": "storesPII"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does it change which users or groups can access <b>Personally Identifiable Information (PII)</b>?<i/>",
-          "data": "accessToPII"
+          "key": "accessToPII"
         }
       ]
     },
@@ -715,17 +724,18 @@
       "expandedIcon": "fa fa-folder-open",
       "collapsedIcon": "fa fa-folder",
       "label": "Frontend Specific",
-      "data": "frontendSpecific",
+      "key": "frontendSpecific",
+      "tags": ["QA", "Development"],
       "children": [
         {
           "icon": "fa fa-file-word-o",
           "label": "QA demo with design/PM",
-          "data": "qaDemoWithDesignPM"
+          "key": "qaDemoWithDesignPM"
         },
         {
           "icon": "fa fa-file-word-o",
           "label": "Does the console spew errors or warnings?",
-          "data": "errors"
+          "key": "errors"
         }
       ]
     }

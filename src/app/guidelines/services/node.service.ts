@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import {TreeNode} from 'primeng/api';
-import { of } from 'rxjs';
+// import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -751,15 +751,9 @@ import { of } from 'rxjs';
   };
 
 
-  getFiles() {
+  getGuidelineNodes() {
     // return of(this.response.data).toPromise();
-    return this.http.get<any>('assets/data/files.json')
-      .toPromise()
-      .then(res => <TreeNode[]>res.data);
-  }
-
-  getLazyFiles() {
-    return this.http.get<any>('assets/data/files-lazy.json')
+    return this.http.get<any>('assets/data/guidelines.json')
       .toPromise()
       .then(res => <TreeNode[]>res.data);
   }

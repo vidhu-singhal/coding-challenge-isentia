@@ -34,6 +34,7 @@ import {ToastModule} from 'primeng/toast';
 import {TreeModule} from 'primeng/tree';
 import {EditorModule} from 'primeng/editor';
 import {StepsModule} from 'primeng/steps';
+import {TreeTableModule} from 'primeng/treetable';
 
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
@@ -95,6 +96,7 @@ import {SafeHtmlPipe} from './pipes/safe-html-pipe';
     TreeModule,
     EditorModule,
     StepsModule,
+    TreeTableModule,
 
     // Service Worker for potential caching of resources
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})

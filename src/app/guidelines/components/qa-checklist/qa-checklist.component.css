@@ -10,7 +10,7 @@ h4 {
 
 ::ng-deep.ui-tree {
   margin: auto;
-  width: 98vw;
+  width: 100vw;
 }
 
 ::ng-deep.ui-steps .ui-steps-item {
@@ -38,4 +38,23 @@ h4 {
 
 ::ng-deep.ui-steps.steps-custom .ui-steps-item .ui-steps-title {
   color: #555555;
+}
+
+::ng-deep.ui-sidebar-bottom.ui-sidebar-lg {
+  height: 80vh;
+}
+
+.label {
+  padding: 2px 4px 2px 4px;
+  margin-left: 2px;
+}
+
+.label-FE {
+  color: rgb(23, 43, 77);
+  background-color: rgb(203, 247, 255);
+}
+
+.label-BE {
+  background-color: rgb(255, 235, 230);
+  color: rgb(191, 38, 0);
 }
