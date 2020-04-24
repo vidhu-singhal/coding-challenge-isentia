@@ -6,7 +6,7 @@
 
 <div class="ui-g">
   <div class="content-section">
-    <p-carousel [value]="items" easing="cubic-bezier(.17,.67,.58,.02)" circular="circular" [numVisible]="3">
+    <p-carousel [value]="items$ | async" easing="cubic-bezier(.17,.67,.58,.02)" circular="circular" [numVisible]="3">
       <ng-template let-item pTemplate="item">
         <p-card>
           <div pDraggable="ddCoffeBuddy" dragEffect="move">
@@ -16,9 +16,9 @@
       </ng-template>
     </p-carousel>
 
-    <div pDroppable="ddCoffeBuddy" style="height: 400px; width: 400px; margin: 0 auto; border: dashed gray 1px; text-align: center">
-      <code>Drop me here</code>
-    </div>
+<!--    <div pDroppable="ddCoffeBuddy" style="height: 400px; width: 400px; margin: 0 auto; border: dashed gray 1px; text-align: center">-->
+<!--      <code>Drop me here</code>-->
+<!--    </div>-->
 
   </div>
 </div>

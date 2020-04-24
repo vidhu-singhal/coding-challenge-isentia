@@ -25,15 +25,15 @@ Install latest version of node.js for your platform and run following commands f
 
 First Tab (Run Backend Server):
 ```sh
-$ cd server/node
-$ npm install
-$ node app.js
+cd server/node
+npm install
+node app.js
 ```
 
 Second Tab:
 ```sh
-$ npm install
-$ ng serve --port 4200 --open
+npm install
+ng serve --port 4200 --open
 ```
 
 #### Building for source
